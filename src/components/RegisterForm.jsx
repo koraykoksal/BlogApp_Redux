@@ -34,7 +34,7 @@ const RegisterForm = ({
   handleBlur,
 }) => {
 
-  
+
   return (
     <div>
       <Form>
@@ -88,7 +88,7 @@ const RegisterForm = ({
             helperText={errors.email}
           />
           <TextField
-            label="password"
+            label="Password"
             name="password"
             id="password"
             type="password"
