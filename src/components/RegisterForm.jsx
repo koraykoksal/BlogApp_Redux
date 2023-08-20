@@ -10,10 +10,10 @@ export const registerSchema = object({
     .required("username zorunludur"),
   first_name: string()
     .max(20, "İsim 20 karakterden az olmalıdır.")
-    .required("first_name zorunludur"),
+    .required("firstname zorunludur"),
   last_name: string()
     .max(20, "Soyisim 30 karakterden az olmalıdır.")
-    .required("last_name zorunludur"),
+    .required("lastname zorunludur"),
 
   email: string().email().required("Email zorunludur"),
   password: string()
@@ -42,7 +42,7 @@ const RegisterForm = ({
           <TextField
             label="User Name"
             name="username"
-            id="userName"
+            id="username"
             type="text"
             variant="outlined"
             value={values.username}
@@ -53,8 +53,8 @@ const RegisterForm = ({
           />
           <TextField
             label="First Name"
-            name="first_name"
-            id="firstName"
+            name="firstname"
+            id="firstname"
             type="text"
             variant="outlined"
             value={values.first_name}
@@ -65,8 +65,8 @@ const RegisterForm = ({
           />
           <TextField
             label="Last Name"
-            name="last_name"
-            id="last_name"
+            name="lastname"
+            id="lastname"
             type="text"
             variant="outlined"
             value={values.last_name}
