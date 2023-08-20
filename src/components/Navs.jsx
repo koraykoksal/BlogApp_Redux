@@ -12,28 +12,14 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { useNavigate } from 'react-router-dom';
+import bloglogo from '../assets/img/KBLOG-LOGO.png'
+import { Grid } from '@mui/material';
 
-const pages = [
-  {
-    title:'Home',
-    url:'/'
-  },
-  {
-    title:'Login',
-    url:'/login'
-  },
-  {
-    title:'Register',
-    url:'/register'
-  }
-];
+
+const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function ResponsiveAppBar() {
-
-  const navi = useNavigate()
-
+function Navs() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -53,25 +39,11 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="fixed" sx={{backgroundColor:'#000000'}}>
+    <AppBar position="fixed">
       <Container maxWidth="xl">
-
         <Toolbar disableGutters>
 
-          <Typography
-            variant="h6"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: '#C23373',
-              textDecoration: 'none',
-            }}
-          >
-            K-BLOG
-          </Typography>
+
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -102,16 +74,19 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((item,index) => (
-                <MenuItem key={index} onClick={()=>navi(item.url)}>
-                  <Typography textAlign="center">{item.title}</Typography>
+              {pages.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
 
+          
+            {/* mobil versiyonda açılıyor */}
           <Typography
             variant="h5"
+            
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -119,31 +94,34 @@ function ResponsiveAppBar() {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: '#C23373',
+              color: 'inherit',
               textDecoration: 'none',
             }}
           >
             K-BLOG
           </Typography>
 
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((item,index) => (
+            {pages.map((page) => (
               <Button
-                key={index}
-                onClick={()=>navi(item.url)}
+                key={page}
+                onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {item.title}
+                {page}
               </Button>
             ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            {/* <Tooltip title="Open settings">
+            
+            <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
+
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -160,18 +138,19 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
+                
+
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
-            </Menu> */}
-            <Button variant="outlined" sx={{color:'#ffffff',borderColor:'#C23373','&:hover':{backgroundColor:'#79155B',borderColor:'#79155B'}}}>+ Post</Button>
-
+            </Menu>
           </Box>
+
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default Navs;
