@@ -13,6 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import {PiUserListDuotone} from 'react-icons/pi'
 
 const pages = [
   {
@@ -32,7 +34,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
 
-  const currentUser = true
+  const {currentUser} = useSelector((state)=>state.auth)
 
   const navi = useNavigate()
 
@@ -86,6 +88,7 @@ function ResponsiveAppBar() {
             >
               <MenuIcon />
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -105,28 +108,18 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((item,index) => (
-                <MenuItem key={index} onClick={()=>navi(item.url)}>
+                <MenuItem key={index} onClick={()=>{
+                  handleCloseNavMenu()
+                  navi(item.url)
+                }}>
                   <Typography textAlign="center">{item.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
+
           </Box>
 
-          <Typography
-            variant="h5"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: '#C23373',
-              textDecoration: 'none',
-            }}
-          >
-            K-BLOG
-          </Typography>
+
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((item,index) => (
@@ -141,11 +134,17 @@ function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            {/* <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+
+              <Box sx={{display:'flex',justifyContent:'center',alignItems:'center',gap:3}}>
+              {
+              currentUser && <Button variant="outlined" sx={{color:'#ffffff',borderColor:'#C23373','&:hover':{backgroundColor:'#79155B',borderColor:'#79155B'}}}>+ Post</Button>
+              }
+
+              {
+                currentUser && <PiUserListDuotone onClick={handleOpenUserMenu} size={'40px'} color='#C23373' style={{padding:4,border:'1px solid #C23373',borderRadius:'1rem','&:hover':{cursor:'pointer'}}}/> 
+              }
+              </Box>
+
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -167,11 +166,12 @@ function ResponsiveAppBar() {
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
-            </Menu> */}
-            {
-              currentUser ? <Button variant="outlined" sx={{color:'#ffffff',borderColor:'#C23373','&:hover':{backgroundColor:'#79155B',borderColor:'#79155B'}}}>+ Post</Button> : ""
-            }
-            
+            </Menu>
+
+
+
+
+
 
           </Box>
         </Toolbar>
