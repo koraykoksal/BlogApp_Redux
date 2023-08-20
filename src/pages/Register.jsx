@@ -59,17 +59,18 @@ export const Register = () => {
             }}
             validationSchema={registerSchema}
             //*onsubmit içinde yazılan values ismi ile initialValue içindeki statelerin bilgilerine erişirsin
-            // onSubmit={(values, actions) => {
-            //   register({ ...values, password2: values.password })
-            //   actions.resetForm()
-            //   actions.setSubmitting(false)
-            // }}
+            onSubmit={(values, actions) => {
+              //register({ ...values, password2: values.password })
+              actions.resetForm()
+              actions.setSubmitting(false)
+            }}
             component={(props) => <RegisterForm {...props} />}
           ></Formik>
 
           <Box sx={{ textAlign: "center", mt: 2 }}>
             <Link to="/login">Do you have an account?</Link>
           </Box>
+          
         </Grid>
 
         <Grid item xs={0} sm={7} md={6}>

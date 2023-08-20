@@ -76,7 +76,6 @@ export const Login = () => {
             validationSchema={loginSchema}
             onSubmit={(values, action) => {
               //login(values)
-              console.log(values)
               action.resetForm()
               action.setSubmitting(false)
             }}
@@ -111,7 +110,7 @@ export const Login = () => {
                   <Button variant="contained" type="submit">
                     Submit
                   </Button>
-                  
+
                 </Box>
               </Form>
             )}
