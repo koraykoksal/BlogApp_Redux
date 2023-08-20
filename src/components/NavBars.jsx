@@ -32,6 +32,8 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
 
+  const currentUser = true
+
   const navi = useNavigate()
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -166,7 +168,10 @@ function ResponsiveAppBar() {
                 </MenuItem>
               ))}
             </Menu> */}
-            <Button variant="outlined" sx={{color:'#ffffff',borderColor:'#C23373','&:hover':{backgroundColor:'#79155B',borderColor:'#79155B'}}}>+ Post</Button>
+            {
+              currentUser ? <Button variant="outlined" sx={{color:'#ffffff',borderColor:'#C23373','&:hover':{backgroundColor:'#79155B',borderColor:'#79155B'}}}>+ Post</Button> : ""
+            }
+            
 
           </Box>
         </Toolbar>

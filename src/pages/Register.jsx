@@ -27,11 +27,6 @@ export const Register = () => {
           p: 2,
         }}
       >
-        {/* <Grid item xs={12}>
-          <Typography variant="h3" color="primary" align="center">
-            STOCK APP
-          </Typography>
-        </Grid> */}
 
         <Grid item xs={12} sm={10} md={6}>
           <Avatar
@@ -54,6 +49,7 @@ export const Register = () => {
           </Typography>
 
           <Formik
+          //*initialValues statelerin başalngıç değerlerinin olduğu yer tekrar state oluşturma ihtiyacı olmuyor
             initialValues={{
               username: "",
               first_name: "",
@@ -62,6 +58,7 @@ export const Register = () => {
               password: "",
             }}
             validationSchema={registerSchema}
+            //*onsubmit içinde yazılan values ismi ile initialValue içindeki statelerin bilgilerine erişirsin
             // onSubmit={(values, actions) => {
             //   register({ ...values, password2: values.password })
             //   actions.resetForm()
@@ -80,6 +77,7 @@ export const Register = () => {
             <img src={image} alt="" />
           </Container>
         </Grid>
+
       </Grid>
     </Container>
 

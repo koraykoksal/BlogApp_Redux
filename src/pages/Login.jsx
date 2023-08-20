@@ -1,95 +1,127 @@
-import { Typography } from '@mui/material'
 import React from 'react'
-import { Link } from 'react-router-dom'
 import {FcGoogle} from 'react-icons/fc'
+import Avatar from "@mui/material/Avatar"
+import Container from "@mui/material/Container"
+import Grid from "@mui/material/Grid"
+import Typography from "@mui/material/Typography"
+import LockIcon from "@mui/icons-material/Lock"
+import image from "../assets/result.svg"
+import { Link } from "react-router-dom"
+import Box from "@mui/material/Box"
+import TextField from "@mui/material/TextField"
+import Button from "@mui/material/Button"
+import { Formik, Form } from "formik"
+import { object, string } from "yup"
 
 export const Login = () => {
-  return (
-    
-    <div className='flex flex-col items-center mt-[100px]'>
 
-    
-    <h5 className="flex items-center mb-6 text-2xl font-semibold text-red-700 dark:text-white">Login</h5>
+    //? harici validasyon şemasi
+    const loginSchema = object({
+      email: string()
+        .email("Lutfen valid bir email giriniz")
+        .required("Bu alan zorunludur"),
+      password: string()
+        .required("Bu alan zorunludur")
+        .min(8, "En az 8 karakter girilmelidir")
+        .max(16, "En fazla 16 karakter girilmelidir")
+        .matches(/\d+/, "En az bir rakam içermelidir.")
+        .matches(/[a-z]/, "En az bir küçük harf içermelidir.")
+        .matches(/[A-Z]/, "En az bir büyük harf içermelidir.")
+        .matches(/[!,?{}><%&$#£+-.]+/, "En az bir özel karekter içermelidir."),
+    })
+  
+    return (
+      
 
-    <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-      <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-        <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-          Sign in to your account
-        </h1>
-        <form className="space-y-4 md:space-y-6" action="#">
-          <div>
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Your email
-            </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Email"
-              required=""
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="••••••••"
-              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              required=""
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-start">
-              <div className="flex items-center h-5">
-                <input
-                  id="remember"
-                  aria-describedby="remember"
-                  type="checkbox"
-                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                  required=""
-                />
-              </div>
-              <div className="ml-3 text-sm">
-                <label
-                  htmlFor="remember"
-                  className="text-gray-500 dark:text-gray-300"
-                >
-                  Remember me
-                </label>
-              </div>
-            </div>
-            <a
-              href="#"
-              className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
-            >
-              Forgot password?
-            </a>
-          </div>
+      <Container maxWidth="lg" sx={{mt:10}}>
+      <Grid
+        container
+        justifyContent="center"
+        direction="row-reverse"
+        sx={{
+          height: "100vh",
+          p: 2,
+        }}
+      >
+        
 
-          <button type='submit' className='w-full text-red-600 bg-slate-100 hover:bg-slate-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800'>Sign in</button>
+        <Grid item xs={12} sm={10} md={6}>
+          <Avatar
+            sx={{
+              backgroundColor: "secondary.light",
+              m: "auto",
+              width: 40,
+              height: 40,
+            }}
+          >
+            <LockIcon size="30" />
+          </Avatar>
+          <Typography
+            variant="h4"
+            align="center"
+            mb={4}
+            color="secondary.light"
+          >
+            Login
+          </Typography>
 
-          <button type='submit' className='w-full text-red-600 bg-slate-100 hover:bg-slate-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 flex items-center justify-center'>Continue With <FcGoogle size={'25px'}/> </button>
+          <Formik
+            initialValues={{ email: "", password: "" }}
+            validationSchema={loginSchema}
+            // onSubmit={(values, action) => {
+            //   login(values)
+            //   action.resetForm()
+            //   action.setSubmitting(false)
+            // }}
+          >
+            {({ handleChange, handleBlur, values, touched, errors }) => (
+              <Form>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  <TextField
+                    label="Email"
+                    name="email"
+                    id="email"
+                    type="email"
+                    variant="outlined"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.email}
+                    error={touched.email && Boolean(errors.email)}
+                    helperText={errors.email}
+                  />
+                  <TextField
+                    label="password"
+                    name="password"
+                    id="password"
+                    type="password"
+                    variant="outlined"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.password}
+                    error={touched.password && Boolean(errors.password)}
+                    helperText={errors.password}
+                  />
+                  <Button variant="contained" type="submit">
+                    Submit
+                  </Button>
+                </Box>
+              </Form>
+            )}
+          </Formik>
 
-          <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-            Don’t have an account yet?{" "}
-          
-            <Link to="/register" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
-          </p>
-        </form>
-      </div>
-    </div>
+          <Box sx={{ textAlign: "center", mt: 2 }}>
+            <Link to="/register">Don't you have an account?</Link>
+          </Box>
+        </Grid>
 
-    </div>
-  )
+        <Grid item xs={10} sm={7} md={6}>
+          <Container>
+            <img src={image} alt="img" />
+          </Container>
+        </Grid>
+      </Grid>
+    </Container>
+
+    )
+
 }

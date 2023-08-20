@@ -33,6 +33,8 @@ const RegisterForm = ({
   touched,
   handleBlur,
 }) => {
+
+  
   return (
     <div>
       <Form>
