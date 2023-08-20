@@ -29,6 +29,12 @@ export const Login = () => {
         .matches(/[A-Z]/, "En az bir büyük harf içermelidir.")
         .matches(/[!,?{}><%&$#£+-.]+/, "En az bir özel karekter içermelidir."),
     })
+
+    const handleShow=(data)=>{
+
+      console.log(data)
+
+    }
   
     return (
       
@@ -68,11 +74,12 @@ export const Login = () => {
           <Formik
             initialValues={{ email: "", password: "" }}
             validationSchema={loginSchema}
-            // onSubmit={(values, action) => {
-            //   login(values)
-            //   action.resetForm()
-            //   action.setSubmitting(false)
-            // }}
+            onSubmit={(values, action) => {
+              //login(values)
+              console.log(values)
+              action.resetForm()
+              action.setSubmitting(false)
+            }}
           >
             {({ handleChange, handleBlur, values, touched, errors }) => (
               <Form>
@@ -83,9 +90,9 @@ export const Login = () => {
                     id="email"
                     type="email"
                     variant="outlined"
+                    value={values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.email}
                     error={touched.email && Boolean(errors.email)}
                     helperText={errors.email}
                   />
@@ -95,15 +102,16 @@ export const Login = () => {
                     id="password"
                     type="password"
                     variant="outlined"
+                    value={values.password}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.password}
                     error={touched.password && Boolean(errors.password)}
                     helperText={errors.password}
                   />
                   <Button variant="contained" type="submit">
                     Submit
                   </Button>
+                  
                 </Box>
               </Form>
             )}
