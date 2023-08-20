@@ -24,6 +24,8 @@ export const registerSchema = object({
     .matches(/[a-z]/, "Password bir küçük harf içermelidir")
     .matches(/[A-Z]/, "Password bir büyük harf içermelidir")
     .matches(/[!,?{}><%&$#£+-.]+/, "Password bir özel karakter içermelidir"),
+  bio:string()
+  .max(100,"Bio ilgisi 100 karakterden az olmalıdır.")
 })
 
 const RegisterForm = ({
@@ -53,8 +55,8 @@ const RegisterForm = ({
           />
           <TextField
             label="First Name"
-            name="firstname"
-            id="firstname"
+            name="first_name"
+            id="first_name"
             type="text"
             variant="outlined"
             value={values.first_name}
@@ -65,8 +67,8 @@ const RegisterForm = ({
           />
           <TextField
             label="Last Name"
-            name="lastname"
-            id="lastname"
+            name="last_name"
+            id="last_name"
             type="text"
             variant="outlined"
             value={values.last_name}
@@ -98,6 +100,30 @@ const RegisterForm = ({
             onBlur={handleBlur}
             error={touched.password && Boolean(errors.password)}
             helperText={errors.password}
+          />
+          <TextField
+            label="Bio"
+            name="bio"
+            id="bio"
+            type="text"
+            variant="outlined"
+            value={values.bio}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.bio && Boolean(errors.bio)}
+            helperText={errors.bio}
+          />
+          <TextField
+            label="Image Link"
+            name="image_link"
+            id="image_link"
+            type="text"
+            variant="outlined"
+            value={values.image_link}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.image_link && Boolean(errors.image_link)}
+            helperText={errors.image_link}
           />
           <Button type="submit" variant="contained" size="large">
             Submit

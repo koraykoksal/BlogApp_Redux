@@ -10,9 +10,14 @@ import Box from "@mui/material/Box"
 import { Formik } from "formik"
 import RegisterForm, { registerSchema } from "../components/RegisterForm"
 import image from "../assets/result.svg"
+import useAuthCall from '../hooks/useAuthCall'
+import { useSelector } from 'react-redux'
 
 
 export const Register = () => {
+
+  const {register}=useAuthCall()
+
   return (
     
 
@@ -56,11 +61,14 @@ export const Register = () => {
               last_name: "",
               email: "",
               password: "",
+              bio:"",
+              image_link:""
             }}
             validationSchema={registerSchema}
             //*onsubmit içinde yazılan values ismi ile initialValue içindeki statelerin bilgilerine erişirsin
             onSubmit={(values, actions) => {
               //register({ ...values, password2: values.password })
+              register({...values,password2:values.password})
               actions.resetForm()
               actions.setSubmitting(false)
             }}

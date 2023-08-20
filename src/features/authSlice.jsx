@@ -4,7 +4,7 @@ const initialState={
     currentUser:"",
     loading:false,
     error:false,
-    isAdmin:false,
+    //isAdmin:false,
     token:"",
 
 }
@@ -26,23 +26,23 @@ const authSlice=createSlice({
             state.error=true;
 
         },
-        loginSuccess:(state,payload)=>{
+        loginSuccess:(state,{payload})=>{
             state.loading=false;
-            state.currentUser=""
-            state.isAdmin=false,
-            state.token=""
+            state.currentUser=payload?.first_name
+            state.token=payload?.token
 
         },
-        logoutSuccess:(state,payload)=>{
+        logoutSuccess:(state)=>{
             state.loading=false;
             state.currentUser = "";
             state.token="";
 
         },
-        registerSuccess:(state)=>{
+        //*payload içindeki dataya action olmadan erişmek için payload bilgisini object içinde belirtmek gerekir
+        registerSuccess:(state,{payload})=>{
             state.loading=true;
-            state.currentUser="";
-            state.token="";
+            state.currentUser=payload?.first_name;
+            state.token=payload?.token;
             
         }
     }
@@ -55,7 +55,8 @@ export const
     fetchStart,
     fetchFail,
     loginSuccess,
-    logoutSuccess
+    logoutSuccess,
+    registerSuccess
 
 }=authSlice.actions
 

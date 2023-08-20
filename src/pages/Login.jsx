@@ -12,8 +12,11 @@ import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
 import { Formik, Form } from "formik"
 import { object, string } from "yup"
+import useAuthCall from '../hooks/useAuthCall'
 
 export const Login = () => {
+
+    const {login} = useAuthCall()
 
     //? harici validasyon şemasi
     const loginSchema = object({
@@ -75,7 +78,7 @@ export const Login = () => {
             initialValues={{ email: "", password: "" }}
             validationSchema={loginSchema}
             onSubmit={(values, action) => {
-              //login(values)
+              login(values)
               action.resetForm()
               action.setSubmitting(false)
             }}
