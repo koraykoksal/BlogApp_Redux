@@ -28,8 +28,8 @@ const authSlice=createSlice({
         },
         loginSuccess:(state,{payload})=>{
             state.loading=false;
-            state.currentUser=payload?.first_name
-            state.token=payload?.token
+            state.currentUser=payload?.user?.username
+            state.token=payload?.key
 
         },
         logoutSuccess:(state)=>{
@@ -41,7 +41,7 @@ const authSlice=createSlice({
         //*payload içindeki dataya action olmadan erişmek için payload bilgisini object içinde belirtmek gerekir
         registerSuccess:(state,{payload})=>{
             state.loading=true;
-            state.currentUser=payload?.first_name;
+            state.currentUser=payload?.username;
             state.token=payload?.token;
             
         }

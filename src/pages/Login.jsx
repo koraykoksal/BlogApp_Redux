@@ -13,8 +13,14 @@ import Button from "@mui/material/Button"
 import { Formik, Form } from "formik"
 import { object, string } from "yup"
 import useAuthCall from '../hooks/useAuthCall'
+import { useSelector } from 'react-redux'
 
 export const Login = () => {
+
+  const {token,currentUser} = useSelector((state)=>state.auth)
+
+  console.log("token : ",token)
+  console.log("currentUser : ",currentUser)
 
     const {login} = useAuthCall()
 
