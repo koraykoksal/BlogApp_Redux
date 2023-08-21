@@ -16,13 +16,15 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {PiUserListDuotone} from 'react-icons/pi'
 import useAuthCall from '../hooks/useAuthCall';
+import { Navigate } from 'react-router-dom';
+import { ListItem, ListItemText } from '@mui/material';
 
 
 
 function ResponsiveAppBar() {
 
   const {currentUser} = useSelector((state)=>state.auth)
-  const logout = useAuthCall()
+  const {logout} = useAuthCall()
   const navi = useNavigate()
   const dispatch = useDispatch()
 
@@ -34,16 +36,6 @@ function ResponsiveAppBar() {
     {
       title:'About',
       url:'/about'
-    }
-  ];
-  const settings = [
-    {
-      title:'Profile',
-      url:'/profile'
-    },
-    {
-      title:'Logout',
-      url:''
     }
   ];
 
@@ -68,6 +60,10 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const test=()=>{
+    logout()
+  }
 
   return (
     <AppBar position="fixed" sx={{backgroundColor:'#000000'}}>
@@ -185,11 +181,11 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((item,index) => (
-                <MenuItem key={index} onClick={handleCloseUserMenu}>
-                  <Button>{item.title}</Button>
-                </MenuItem>
-              ))}
+
+              <Box onClick={handleCloseUserMenu} sx={{display:'flex',flexDirection:'column'}}>
+                  <Button onClick={()=>navi('/profile')}>Profile</Button>
+                  <Button onClick={()=>logout()}>Logout</Button>
+                </Box>
             </Menu>
 
           </Box>

@@ -39,11 +39,6 @@ export const Login = () => {
         .matches(/[!,?{}><%&$#£+-.]+/, "En az bir özel karekter içermelidir."),
     })
 
-    const handleShow=(data)=>{
-
-      console.log(data)
-
-    }
   
     return (
       

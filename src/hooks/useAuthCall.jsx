@@ -30,8 +30,19 @@ const useAuthCall = () => {
     }
 
 
-    const logout=()=>{
+    const logout=async ()=>{
+        dispatch(fetchStart())
 
+        try {
+            await axios.post(`${import.meta.env.VITE_BASE_URL}/users/auth/logout/`)
+            dispatch(logoutSuccess(9))
+            toastSuccessNotify('Logout Successful.')
+            navigate('/')
+
+        } catch (error) {
+            dispatch(fetchFail())
+            toastErrorNotify("'Something Went Wrong !'")
+        }
     }
 
 

@@ -1,7 +1,10 @@
+import { Typography } from '@mui/material'
 import React from 'react'
 
 export const Profile = () => {
   return (
-    <div>Profile</div>
+    <Typography sx={{mt:10}} variant='h3'>
+      Profile
+    </Typography>
   )
 }
