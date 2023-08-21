@@ -13,13 +13,11 @@ export const Home = () => {
 
 
   const {allPost} = useSelector((state)=>state.blog)
-  const {getPostData}=useBlogCall()
-
-  console.log(allPost)
+  const {getBlogData}=useBlogCall()
 
   useEffect(() => {
 
-    getPostData('blogs')
+    getBlogData('blogs')
 
   }, [])
   

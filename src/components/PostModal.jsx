@@ -4,8 +4,17 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {Formik,Form} from 'formik'
-import { Container, TextField } from '@mui/material';
+import { Container, TextField,Select,MenuItem } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { object, string } from "yup"
+import {postInfoSchema} from '../helper/postTextSchema'
+import useBlogCall from '../hooks/useBlogCall';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+
+
 
 const style = {
   position: 'absolute',
@@ -19,10 +28,29 @@ const style = {
   p: 4,
 };
 
+
+
 export default function PostModal({open,setOpen}) {
-  // const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => setOpen(true);
+  
+
+  let currentDate=new Date()
   const handleClose = () => setOpen(false);
+  const {newPostData} = useBlogCall()
+  const {getCategoryData} = useBlogCall()
+  const {categories}=useSelector((state)=>state.blog)
+
+
+  const handleSubmit=(info)=>{
+    newPostData('blogs',info)
+ 
+  }
+
+  useEffect(() => {
+
+    getCategoryData('categories')
+
+  }, [!categories])
+  
 
   return (
     <div>
@@ -45,13 +73,18 @@ export default function PostModal({open,setOpen}) {
 
           <Formik
           initialValues={{title:"",content:"",image:"",category:"",status:"",slug:""}}
-          validationSchema={""}
+          // validationSchema={postInfoSchema}
+          onSubmit={(values,action)=>{
+            handleSubmit(values)
+            action.resetForm()
+
+          }}
           >
             {({handleChange, handleBlur, values, touched, errors })=>(
               <Form>
                 <Box sx={{display: "flex", flexDirection: "column", gap: 2 }}>
                   <TextField
-                  label="Title"
+                  label="Title *"
                   name="title"
                   id='title'
                   type='text'
@@ -59,11 +92,11 @@ export default function PostModal({open,setOpen}) {
                   value={values.title}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  errors={touched.title && Boolean(touched.title)}
-                  helperText={touched.title}
+                  error={touched.title && Boolean(touched.title)}
+                  helperText={errors.title}
                   />
                   <TextField
-                  label="Content"
+                  label="Content *"
                   name="content"
                   id='content'
                   type='text'
@@ -71,9 +104,43 @@ export default function PostModal({open,setOpen}) {
                   value={values.content}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  errors={touched.content && Boolean(touched.content)}
-                  helperText={touched.content}
+                  error={touched.content && Boolean(touched.content)}
+                  helperText={errors.content}
                   />
+                  <FormControl>
+                    <InputLabel id="demo-simple-select-autowidth-label">Category</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-autowidth-label"
+                      id="demo-simple-select-autowidth"
+                      value={console.log(values.category)}
+                      onChange={handleChange}
+                      autoWidth
+                      label="category"
+                      name='category'
+                    >
+                      {
+                        categories.map((item,index)=>(
+                      <MenuItem key={index} value={item?.id}>
+                        <em>{item?.name}</em>
+                      </MenuItem>
+                        ))
+                      }
+                      
+                    </Select>
+                  </FormControl>
+
+                  {/* <TextField
+                  label="Category"
+                  name="category"
+                  id='category'
+                  type='text'
+                  variant='outlined'
+                  value={values.category}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.category && Boolean(touched.category)}
+                  helperText={errors.category}
+                  /> */}
                   <TextField
                   label="Image Link"
                   name="image_link"
@@ -83,46 +150,11 @@ export default function PostModal({open,setOpen}) {
                   value={values.image_link}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  errors={touched.image_link && Boolean(touched.image_link)}
-                  helperText={touched.image_link}
+                  // error={touched.image_link && Boolean(touched.image_link)}
+                  // helperText={errors.image_link}
                   />
-                  <TextField
-                  label="Category"
-                  name="category"
-                  id='category'
-                  type='text'
-                  variant='outlined'
-                  value={values.category}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  errors={touched.category && Boolean(touched.category)}
-                  helperText={touched.category}
-                  />
-                  <TextField
-                  label="Status"
-                  name="status"
-                  id='status'
-                  type='text'
-                  variant='outlined'
-                  value={values.status}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  errors={touched.status && Boolean(touched.status)}
-                  helperText={touched.status}
-                  />
-                  <TextField
-                  label="Slug"
-                  name="slug"
-                  id='slug'
-                  type='text'
-                  variant='outlined'
-                  value={values.slug}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  errors={touched.slug && Boolean(touched.slug)}
-                  helperText={touched.slug}
-                  />
-                  <Button variant='contained' sx={{backgroundColor:'#7A9D54','&:hover':{backgroundColor:'#557A46'}}}>Publish</Button>
+
+                  <Button type='submit' variant='contained' sx={{backgroundColor:'#7A9D54','&:hover':{backgroundColor:'#557A46'}}}>Publish</Button>
                   <Button variant='outlined' onClick={handleClose}>Cancel</Button>
                 </Box>
               </Form>
@@ -130,7 +162,8 @@ export default function PostModal({open,setOpen}) {
             )}
           </Formik>
           
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }} variant='subtitle2'>
+            {currentDate.toLocaleDateString()}
           </Typography>
         </Box>
       </Modal>

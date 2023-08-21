@@ -67,7 +67,6 @@ export const Register = () => {
             validationSchema={registerSchema}
             //*onsubmit içinde yazılan values ismi ile initialValue içindeki statelerin bilgilerine erişirsin
             onSubmit={(values, actions) => {
-              //register({ ...values, password2: values.password })
               register({...values,password2:values.password})
               actions.resetForm()
               actions.setSubmitting(false)

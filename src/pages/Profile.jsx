@@ -11,11 +11,10 @@ export const Profile = () => {
 
   const {userInfo} = useSelector((state)=>state.auth)
   const navi=useNavigate()
-  console.log(userInfo)
 
   return (
     <Grid container justifyContent={"center"} spacing={2}>
-      <Card sx={{ maxWidth: 350,mt:30,justifyContent:'center',boxShadow:3}}>
+      <Card sx={{ maxWidth: 350,mt:15,justifyContent:'center',boxShadow:3}}>
         <CardActionArea>
           <CardMedia
             component="img"

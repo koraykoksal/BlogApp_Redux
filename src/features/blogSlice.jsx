@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState={
     loading:false,
     error:false,
-    allPost:[]
+    allPost:[],
+    categories:[]
 }
 
 
@@ -27,6 +28,7 @@ const blogSlice=createSlice({
         fetchSuccessPost:(state,action)=>{
             state.loading=false;
             state.allPost=action.payload
+            state.categories=action.payload
 
         }
     }
