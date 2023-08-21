@@ -53,11 +53,11 @@ export const PostCards = ({item}) => {
           currentUser ? 
           (
           <Avatar  sx={{ bgcolor:'#C23373'}} aria-label="recipe">
-          {currentUser.charAt(0)}
+          {item?.author?.charAt(0)}
           </Avatar>
           ):(
           <Avatar sx={{ bgcolor:'#C23373' }} aria-label="recipe">
-              {currentUser.charAt(0)}
+              {item?.author?.charAt(0)}
             </Avatar>
           )
           
@@ -72,7 +72,7 @@ export const PostCards = ({item}) => {
             <Typography variant='subtitle2'>Read More</Typography>
           </IconButton>
           ):(
-          <IconButton onClick={()=>toastErrorNotify('Account null !')} aria-label="settings" sx={{display:'flex',flexDirection:'column'}}>
+          <IconButton onClick={()=>toastErrorNotify('Please Login !')} aria-label="settings" sx={{display:'flex',flexDirection:'column'}}>
             <VisibilityIcon/>
             <Typography variant='subtitle2'>Read More</Typography>
           </IconButton>
@@ -100,7 +100,7 @@ export const PostCards = ({item}) => {
           Category : {item?.category_name}
         </Typography>
       </CardContent>
-      <CardContent sx={{height:'150px'}}>
+      <CardContent sx={{height:'150px',overflow:'auto'}}>
         <Typography variant="body2" color="text.secondary">
           {item?.content}
         </Typography>

@@ -189,7 +189,7 @@ function ResponsiveAppBar() {
               <Box onClick={handleCloseUserMenu} sx={{display:'flex',flexDirection:'column'}}>
                   <Button onClick={()=>navi('/profile')}>Profile</Button>
                   <Button onClick={()=>logout()}>Logout</Button>
-                </Box>
+              </Box>
             </Menu>
 
           </Box>
