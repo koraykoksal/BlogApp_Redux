@@ -20,6 +20,8 @@ const useAuthCall = () => {
             const {data} = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/auth/login/`,userdata)
 
             dispatch(loginSuccess(data))
+            toastSuccessNotify('Login Successful.')
+            navigate('/')
             
         } catch (error) {
             dispatch(fetchFail())

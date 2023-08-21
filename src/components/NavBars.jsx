@@ -13,30 +13,43 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {PiUserListDuotone} from 'react-icons/pi'
+import useAuthCall from '../hooks/useAuthCall';
 
-const pages = [
-  {
-    title:'Home',
-    url:'/'
-  },
-  {
-    title:'Login',
-    url:'/login'
-  },
-  {
-    title:'Register',
-    url:'/register'
-  }
-];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
 
 function ResponsiveAppBar() {
 
   const {currentUser} = useSelector((state)=>state.auth)
-
+  const logout = useAuthCall()
   const navi = useNavigate()
+  const dispatch = useDispatch()
+
+  const pages = [
+    {
+      title:'Home',
+      url:'/'
+    },
+    {
+      title:'About',
+      url:'/about'
+    }
+  ];
+  const settings = [
+    {
+      title:'Profile',
+      url:'/profile'
+    },
+    {
+      title:'Logout',
+      url:''
+    }
+  ];
+
+
+
+
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -135,14 +148,25 @@ function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 0 }}>
 
-              <Box sx={{display:'flex',justifyContent:'center',alignItems:'center',gap:3}}>
               {
-              currentUser && <Button variant="outlined" sx={{color:'#ffffff',borderColor:'#C23373','&:hover':{backgroundColor:'#79155B',borderColor:'#79155B'}}}>+ Post</Button>
-              }
+                currentUser ? (
+                <Box sx={{display:'flex',gap:3}}>
+                  <Button variant="outlined" sx={{color:'#ffffff',borderColor:'#C23373','&:hover':{backgroundColor:'#79155B',borderColor:'#79155B'}}}>+ Post</Button> 
 
-              {
-                currentUser && <PiUserListDuotone onClick={handleOpenUserMenu} size={'40px'} color='#C23373' style={{padding:4,border:'1px solid #C23373',borderRadius:'1rem','&:hover':{cursor:'pointer'}}}/> 
+                  <IconButton sx={{'&:hover':{scale:'1.1'}}}> 
+                  <PiUserListDuotone onClick={handleOpenUserMenu} size={'35px'} color='#ffffff' style={{padding:3}}/> 
+                  </IconButton>
+                </Box>
+                ):(
+                <Box sx={{display:'flex',gap:3}}>
+                  <Button onClick={()=>navi('/login')} sx={{color:'#ffffff','&:hover':{color:'#C23373'}}}>Login</Button>
+                  <Button onClick={()=>navi('/register')} sx={{backgroundColor:'#79155B',color:'#ffffff','&:hover':{backgroundColor:'#C23373'}}}>Register</Button>
+                </Box>
+                  )
               }
+              <Box sx={{display:'flex',justifyContent:'center',alignItems:'center',gap:3}}>
+
+
               </Box>
 
             <Menu
@@ -161,17 +185,12 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {settings.map((item,index) => (
+                <MenuItem key={index} onClick={handleCloseUserMenu}>
+                  <Button>{item.title}</Button>
                 </MenuItem>
               ))}
             </Menu>
-
-
-
-
-
 
           </Box>
         </Toolbar>

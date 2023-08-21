@@ -12,6 +12,7 @@ import { PostDetail } from '../pages/PostDetail'
 import { NotFound } from '../pages/NotFound'
 import { BrowserRouter } from 'react-router-dom'
 import Navs from '../components/Navs'
+import { About } from '../pages/About'
 
 export const AppRouter = () => {
   return (
@@ -24,6 +25,7 @@ export const AppRouter = () => {
             <Route index element={<Home/>}/>
             <Route path='login' element={<Login/>}/>
             <Route path='register' element={<Register/>}/>
+            <Route path='about' element={<About/>}/>
             <Route element={<PrivateRouter/>}>
             <Route path='/detail/:id' element={<PostDetail/>}/>
             </Route>
