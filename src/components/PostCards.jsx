@@ -52,11 +52,11 @@ export const PostCards = ({item}) => {
 
           currentUser ? 
           (
-          <Avatar onClick={()=>distpatch(navi('/profile'))} sx={{ bgcolor:'#C23373',"&:hover": { cursor: "pointer" } }} aria-label="recipe">
+          <Avatar  sx={{ bgcolor:'#C23373'}} aria-label="recipe">
           {currentUser.charAt(0)}
           </Avatar>
           ):(
-          <Avatar onClick={()=>toastErrorNotify('Account null !')} sx={{ bgcolor:'#C23373',"&:hover": { cursor: "pointer" } }} aria-label="recipe">
+          <Avatar sx={{ bgcolor:'#C23373' }} aria-label="recipe">
               {currentUser.charAt(0)}
             </Avatar>
           )

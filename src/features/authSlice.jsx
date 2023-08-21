@@ -6,6 +6,7 @@ const initialState={
     error:false,
     //isAdmin:false,
     token:"",
+    userInfo:[]
 
 }
 
@@ -26,11 +27,12 @@ const authSlice=createSlice({
             state.error=true;
 
         },
-        loginSuccess:(state,{payload})=>{
+        loginSuccess:(state,action)=>{
             state.loading=false;
-            state.currentUser=payload?.user?.username
-            state.token=payload?.key
-
+            state.currentUser=action?.payload?.user?.username
+            state.token=action?.payload?.key
+            state.userInfo=action?.payload?.user
+            
         },
         logoutSuccess:(state)=>{
             state.loading=false;
