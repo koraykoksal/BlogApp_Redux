@@ -17,6 +17,7 @@ import { styled } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { toastErrorNotify } from '../helper/ToastNotify';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -45,18 +46,40 @@ export const PostCards = ({item}) => {
 
   return (
     
-    <Card sx={{ maxWidth: 345}}>
+    <Card sx={{ maxWidth: 345,boxShadow:3}}>
       <CardHeader
         avatar={
+
+          currentUser ? 
+          (
           <Avatar onClick={()=>distpatch(navi('/profile'))} sx={{ bgcolor:'#C23373',"&:hover": { cursor: "pointer" } }} aria-label="recipe">
-            {currentUser.charAt(0)}
+          {currentUser.charAt(0)}
           </Avatar>
+          ):(
+          <Avatar onClick={()=>toastErrorNotify('Account null !')} sx={{ bgcolor:'#C23373',"&:hover": { cursor: "pointer" } }} aria-label="recipe">
+              {currentUser.charAt(0)}
+            </Avatar>
+          )
+          
         }
         action={
-          <IconButton aria-label="settings" sx={{display:'flex',flexDirection:'column'}}>
+
+          
+          currentUser ? 
+          (
+          <IconButton onClick={()=>navi('/postdetail/'+item.id)} aria-label="settings" sx={{display:'flex',flexDirection:'column'}}>
             <VisibilityIcon/>
-            <Typography variant='body2'>Read More</Typography>
+            <Typography variant='subtitle2'>Read More</Typography>
           </IconButton>
+          ):(
+          <IconButton onClick={()=>toastErrorNotify('Account null !')} aria-label="settings" sx={{display:'flex',flexDirection:'column'}}>
+            <VisibilityIcon/>
+            <Typography variant='subtitle2'>Read More</Typography>
+          </IconButton>
+          )
+
+          
+          
         }
         title={item?.author}
         subheader={dateEvent.toDateString()}
