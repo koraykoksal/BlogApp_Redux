@@ -18,7 +18,7 @@ import {PiUserListDuotone} from 'react-icons/pi'
 import useAuthCall from '../hooks/useAuthCall';
 import { Navigate } from 'react-router-dom';
 import { ListItem, ListItemText } from '@mui/material';
-
+import logo from '../assets/img/KBLOG-LOGO.png'
 
 
 function ResponsiveAppBar() {
@@ -71,7 +71,7 @@ function ResponsiveAppBar() {
 
         <Toolbar disableGutters>
 
-          <Typography
+          {/* <Typography
             variant="h6"
             sx={{
               mr: 2,
@@ -84,7 +84,11 @@ function ResponsiveAppBar() {
             }}
           >
             K-BLOG
-          </Typography>
+          </Typography> */}
+
+          <Box sx={{display:{xs:'none',md:'flex'}}}>
+            <img src={logo} alt="" style={{height:'50px',marginRight:'1rem'}} />
+          </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
