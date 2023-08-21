@@ -11,7 +11,6 @@ import { PrivateRouter } from './PrivateRouter'
 import { PostDetail } from '../pages/PostDetail'
 import { NotFound } from '../pages/NotFound'
 import { BrowserRouter } from 'react-router-dom'
-import Navs from '../components/Navs'
 import { About } from '../pages/About'
 import { Profile } from '../pages/Profile'
 

@@ -19,14 +19,18 @@ import useAuthCall from '../hooks/useAuthCall';
 import { Navigate } from 'react-router-dom';
 import { ListItem, ListItemText } from '@mui/material';
 import logo from '../assets/img/KBLOG-LOGO.png'
+import PostModal from './PostModal';
 
 
-function ResponsiveAppBar() {
+function Navbars() {
 
   const {currentUser} = useSelector((state)=>state.auth)
   const {logout} = useAuthCall()
   const navi = useNavigate()
   const dispatch = useDispatch()
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
 
   const pages = [
     {
@@ -38,10 +42,6 @@ function ResponsiveAppBar() {
       url:'/about'
     }
   ];
-
-
-
-
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -61,9 +61,7 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
-  const test=()=>{
-    logout()
-  }
+
 
   return (
     <AppBar position="fixed" sx={{backgroundColor:'#000000'}}>
@@ -150,8 +148,10 @@ function ResponsiveAppBar() {
 
               {
                 currentUser ? (
-                <Box sx={{display:'flex',gap:3}}>
-                  <Button variant="outlined" sx={{color:'#ffffff',borderColor:'#C23373','&:hover':{backgroundColor:'#79155B',borderColor:'#79155B'}}}>+ Post</Button> 
+                <Box sx={{display:'flex',gap:3}} >
+                  <Button onClick={handleOpen} variant="outlined" sx={{color:'#ffffff',borderColor:'#C23373','&:hover':{backgroundColor:'#79155B',borderColor:'#79155B'}}}>
+                    + Post
+                    </Button> 
 
                   <IconButton sx={{'&:hover':{scale:'1.1'}}}> 
                   <PiUserListDuotone onClick={handleOpenUserMenu} size={'35px'} color='#ffffff' style={{padding:3}}/> 
@@ -195,7 +195,8 @@ function ResponsiveAppBar() {
           </Box>
         </Toolbar>
       </Container>
+      <PostModal open={open} setOpen={setOpen}/>
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default Navbars;
