@@ -9,7 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { object, string } from "yup"
 import {postInfoSchema} from '../helper/postTextSchema'
 import useBlogCall from '../hooks/useBlogCall';
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import { useSelector } from 'react-redux';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -32,24 +32,19 @@ const style = {
 
 export default function PostModal({open,setOpen}) {
   
-
   let currentDate=new Date()
   const handleClose = () => setOpen(false);
   const {newPostData} = useBlogCall()
-  const {getCategoryData} = useBlogCall()
+  
   const {categories}=useSelector((state)=>state.blog)
 
-
+  console.log(categories)
+  
   const handleSubmit=(info)=>{
     newPostData('blogs',info)
- 
   }
 
-  useEffect(() => {
 
-    getCategoryData('categories')
-
-  }, [!categories])
   
 
   return (
@@ -72,7 +67,7 @@ export default function PostModal({open,setOpen}) {
           
 
           <Formik
-          initialValues={{title:"",content:"",image:"",category:"",status:"",slug:""}}
+          initialValues={{title:"",content:"",image:"",category:null,status:"",slug:""}}
           // validationSchema={postInfoSchema}
           onSubmit={(values,action)=>{
             handleSubmit(values)
@@ -108,39 +103,24 @@ export default function PostModal({open,setOpen}) {
                   helperText={errors.content}
                   />
                   <FormControl>
-                    <InputLabel id="demo-simple-select-autowidth-label">Category</InputLabel>
+                    <InputLabel>Category</InputLabel>
                     <Select
-                      labelId="demo-simple-select-autowidth-label"
-                      id="demo-simple-select-autowidth"
+                      id='category'
                       value={console.log(values.category)}
                       onChange={handleChange}
                       autoWidth
-                      label="category"
                       name='category'
+                      label='Category'
                     >
                       {
-                        categories.map((item,index)=>(
-                      <MenuItem key={index} value={item?.id}>
-                        <em>{item?.name}</em>
-                      </MenuItem>
+                        categories.map((item)=>(
+                          <MenuItem value={item.id}>{item.name}</MenuItem>
                         ))
                       }
                       
                     </Select>
                   </FormControl>
 
-                  {/* <TextField
-                  label="Category"
-                  name="category"
-                  id='category'
-                  type='text'
-                  variant='outlined'
-                  value={values.category}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.category && Boolean(touched.category)}
-                  helperText={errors.category}
-                  /> */}
                   <TextField
                   label="Image Link"
                   name="image_link"

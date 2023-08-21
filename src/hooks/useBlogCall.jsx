@@ -1,7 +1,7 @@
 import React from 'react'
 import {toastSuccessNotify,toastErrorNotify} from '../helper/ToastNotify'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchFail, fetchStart, fetchSuccessPost } from '../features/blogSlice'
+import { fetchFail, fetchStart, fetchSuccessPost,fetchSuccessCategory } from '../features/blogSlice'
 import axios from 'axios'
 
 
@@ -37,7 +37,7 @@ const useBlogCall = () => {
 
             const {data} = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/${url}/`)
 
-            distpatch(fetchSuccessPost(data))
+            distpatch(fetchSuccessCategory(data))
             
         } catch (error) {
             distpatch(fetchFail())
