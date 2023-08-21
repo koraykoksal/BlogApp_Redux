@@ -4,7 +4,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {Formik,Form} from 'formik'
-import { TextField } from '@mui/material';
+import { Container, TextField } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 const style = {
   position: 'absolute',
@@ -32,9 +33,15 @@ export default function PostModal({open,setOpen}) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Box sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+          <Typography id="modal-modal-title" variant="subtitle1" component="h2" sx={{p:1,color:'#367E18'}}>
             New Post
           </Typography>
+
+          <CloseIcon sx={{color:'#C70039',mr:1,'&:hover':{cursor:'pointer',color:'#900C3F'}}} onClick={handleClose}/>
+          
+          </Box>
+          
 
           <Formik
           initialValues={{title:"",content:"",image:"",category:"",status:"",slug:""}}
@@ -52,15 +59,78 @@ export default function PostModal({open,setOpen}) {
                   value={values.title}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  error={touched.title && Boolean(touched.title)}
-                  helperText={touched.title}/>
+                  errors={touched.title && Boolean(touched.title)}
+                  helperText={touched.title}
+                  />
+                  <TextField
+                  label="Content"
+                  name="content"
+                  id='content'
+                  type='text'
+                  variant='outlined'
+                  value={values.content}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  errors={touched.content && Boolean(touched.content)}
+                  helperText={touched.content}
+                  />
+                  <TextField
+                  label="Image Link"
+                  name="image_link"
+                  id='image_link'
+                  type='text'
+                  variant='outlined'
+                  value={values.image_link}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  errors={touched.image_link && Boolean(touched.image_link)}
+                  helperText={touched.image_link}
+                  />
+                  <TextField
+                  label="Category"
+                  name="category"
+                  id='category'
+                  type='text'
+                  variant='outlined'
+                  value={values.category}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  errors={touched.category && Boolean(touched.category)}
+                  helperText={touched.category}
+                  />
+                  <TextField
+                  label="Status"
+                  name="status"
+                  id='status'
+                  type='text'
+                  variant='outlined'
+                  value={values.status}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  errors={touched.status && Boolean(touched.status)}
+                  helperText={touched.status}
+                  />
+                  <TextField
+                  label="Slug"
+                  name="slug"
+                  id='slug'
+                  type='text'
+                  variant='outlined'
+                  value={values.slug}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  errors={touched.slug && Boolean(touched.slug)}
+                  helperText={touched.slug}
+                  />
+                  <Button variant='contained' sx={{backgroundColor:'#7A9D54','&:hover':{backgroundColor:'#557A46'}}}>Publish</Button>
+                  <Button variant='outlined' onClick={handleClose}>Cancel</Button>
                 </Box>
               </Form>
+              
             )}
           </Formik>
           
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
           </Typography>
         </Box>
       </Modal>
