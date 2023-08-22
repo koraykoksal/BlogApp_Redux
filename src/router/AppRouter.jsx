@@ -14,6 +14,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { About } from '../pages/About'
 import { Profile } from '../pages/Profile'
 import { Draft } from '../pages/Draft'
+import { Contact } from '../pages/Contact'
 
 export const AppRouter = () => {
   return (
@@ -27,6 +28,7 @@ export const AppRouter = () => {
             <Route path='login' element={<Login/>}/>
             <Route path='register' element={<Register/>}/>
             <Route path='about' element={<About/>}/>
+            <Route path='contact' element={<Contact/>}/>
             <Route element={<PrivateRouter/>}>
             <Route path='profile' element={<Profile/>}/>
             <Route path='draft' element={<Draft/>}/>

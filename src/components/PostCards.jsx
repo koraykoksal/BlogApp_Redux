@@ -58,7 +58,7 @@ export const PostCards = ({item}) => {
   const [viewData, setviewData] = useState({})
 
 
-  const {commentPostData,getcommnetsData,likePostData,getViewBlogData} = useBlogCall()
+  const {commentPostData,getcommnetsData,likePostData,getViewedBlogData} = useBlogCall()
 
   const handleChangeComment=(e)=>{
     setComment(e.target.value)
@@ -93,10 +93,11 @@ export const PostCards = ({item}) => {
           (
           <IconButton onClick={()=>{
 
-            getViewBlogData('blogs',item.id)
+            getViewedBlogData('blogs',item.id)
 
-            navi('/postdetail/'+item.id)}} 
+            navi(`${item.id}`) 
 
+          }}
             aria-label="settings" 
             sx={{display:'flex',
             flexDirection:'column'}}
