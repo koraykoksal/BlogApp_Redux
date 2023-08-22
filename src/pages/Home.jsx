@@ -15,6 +15,8 @@ export const Home = () => {
   const {allPost} = useSelector((state)=>state.blog)
   const {getBlogData,getCategoryData}=useBlogCall()
 
+  console.log(allPost)
+
   useEffect(() => {
 
     getBlogData('blogs')

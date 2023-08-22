@@ -13,6 +13,7 @@ import { useEffect,useState } from 'react';
 import { useSelector } from 'react-redux';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -34,18 +35,36 @@ export default function PostModal({open,setOpen}) {
   
   let currentDate=new Date()
   const handleClose = () => setOpen(false);
-  const {newPostData} = useBlogCall()
-  
+  const {newPostData,getBlogData} = useBlogCall()
+
+  const [info, setInfo] = useState({
+    title:"",
+    content:"",
+    category:"",
+    image_link:"",
+    status:"p", //p:published , d:draft
+    slug:"string"
+  })
   const {categories}=useSelector((state)=>state.blog)
 
-  console.log(categories)
-  
-  const handleSubmit=(info)=>{
+  const handleChange=(e)=>{
+    setInfo({...info,[e.target.name]:e.target.value})
+  }
+
+  const handleSubmit=(e)=>{
+    e.preventDefault()
     newPostData('blogs',info)
+    getBlogData('blogs')
+    handleClose()
+    setInfo({    
+    title:"",
+    content:"",
+    category:"",
+    image_link:"",})
   }
 
 
-  
+  console.log(info)
 
   return (
     <div>
@@ -64,49 +83,35 @@ export default function PostModal({open,setOpen}) {
           <CloseIcon sx={{color:'#C70039',mr:1,'&:hover':{cursor:'pointer',color:'#900C3F'}}} onClick={handleClose}/>
           
           </Box>
-          
 
-          <Formik
-          initialValues={{title:"",content:"",image:"",category:null,status:"",slug:""}}
-          // validationSchema={postInfoSchema}
-          onSubmit={(values,action)=>{
-            handleSubmit(values)
-            action.resetForm()
-
-          }}
+          {/* <Box sx={{display: "flex", flexDirection: "column", gap: 2 }}
           >
-            {({handleChange, handleBlur, values, touched, errors })=>(
-              <Form>
-                <Box sx={{display: "flex", flexDirection: "column", gap: 2 }}>
                   <TextField
-                  label="Title *"
+                  required
+                  label="Title"
                   name="title"
                   id='title'
                   type='text'
                   variant='outlined'
-                  value={values.title}
+                  value={info?.title || ""}
                   onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.title && Boolean(touched.title)}
-                  helperText={errors.title}
                   />
                   <TextField
-                  label="Content *"
+                  required
+                  label="Content"
                   name="content"
                   id='content'
                   type='text'
                   variant='outlined'
-                  value={values.content}
+                  value={info?.content || ""}
                   onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.content && Boolean(touched.content)}
-                  helperText={errors.content}
+                  
                   />
                   <FormControl>
                     <InputLabel>Category</InputLabel>
                     <Select
                       id='category'
-                      value={console.log(values.category)}
+                      value={info?.category || ""}
                       onChange={handleChange}
                       autoWidth
                       name='category'
@@ -114,7 +119,7 @@ export default function PostModal({open,setOpen}) {
                     >
                       {
                         categories.map((item)=>(
-                          <MenuItem value={item.id}>{item.name}</MenuItem>
+                          <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
                         ))
                       }
                       
@@ -127,7 +132,81 @@ export default function PostModal({open,setOpen}) {
                   id='image_link'
                   type='text'
                   variant='outlined'
-                  value={values.image_link}
+                  value={info?.image_link || ""}
+                  onChange={handleChange}
+                  />
+
+                  <Button type='submit' variant='contained' sx={{backgroundColor:'#7A9D54','&:hover':{backgroundColor:'#557A46'}}} onClick={handleSubmit}>Publish</Button>
+                  <Button variant='outlined' onClick={handleClose}>Cancel</Button>
+          </Box> */}
+
+
+          <Formik
+          initialValues={{title:"",content:"",image:"",category:"",status:"p",slug:"string"}}
+          validationSchema={postInfoSchema}
+          onSubmit={(values,actions)=>{
+            newPostData('blogs',values)
+            actions.resetForm()
+            actions.setSubmitting(false)
+            handleClose()
+          }}
+          >
+            {({handleChange, handleBlur, values, touched, errors })=>(
+              <Form>
+                <Box sx={{display: "flex", flexDirection: "column", gap: 2 }}>
+                  <TextField
+                  required
+                  label="Title"
+                  name="title"
+                  id='title'
+                  type='text'
+                  variant='outlined'
+                  value={values.title}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  //error={touched.title && Boolean(touched.title)}
+                  //helperText={errors.title}
+                  />
+                  <TextField
+                  required
+                  label="Content"
+                  name="content"
+                  id='content'
+                  type='text'
+                  variant='outlined'
+                  value={values.content}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  // error={touched.content && Boolean(touched.content)}
+                  // helperText={errors.content}
+                  />
+                  <FormControl>
+                    <InputLabel required>Category</InputLabel>
+                    <Select
+                    required
+                      id='category'
+                      value={values.category}
+                      onChange={handleChange}
+                      autoWidth
+                      name='category'
+                      label='Category'
+                    >
+                      {
+                        categories.map((item)=>(
+                          <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
+                        ))
+                      }
+                      
+                    </Select>
+                  </FormControl>
+
+                  <TextField
+                  label="Image Link"
+                  name="image"
+                  id='image'
+                  type='text'
+                  variant='outlined'
+                  value={values.image}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   // error={touched.image_link && Boolean(touched.image_link)}

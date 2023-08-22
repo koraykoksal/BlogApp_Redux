@@ -3,13 +3,15 @@ import {toastSuccessNotify,toastErrorNotify} from '../helper/ToastNotify'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchFail, fetchStart, fetchSuccessPost,fetchSuccessCategory } from '../features/blogSlice'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 
 const useBlogCall = () => {
   
     const distpatch=useDispatch()
     const {token} = useSelector((state)=>state.auth)
-  
+    const navi=useNavigate()
+
     const getBlogData=async (url)=>{
 
         distpatch(fetchStart())
@@ -50,9 +52,15 @@ const useBlogCall = () => {
         distpatch(fetchStart())
 
         try {
-            const {res} = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/${url}/`,info)
+            await axios.post(`${import.meta.env.VITE_BASE_URL}/api/${url}/`,info,
+            {
+                headers: { Authorization: `Token ${token}` },
+            })
 
-            console.log("res : ",res)
+            // distpatch(fetchSuccessPost(res))
+            toastSuccessNotify('Published')
+            getBlogData(url)
+            navi('/')
 
         } catch (error) {
             distpatch(fetchFail())

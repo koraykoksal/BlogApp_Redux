@@ -18,6 +18,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { toastErrorNotify } from '../helper/ToastNotify';
+import noImage from '../assets/img/noImage.jpeg'
+
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -88,8 +91,8 @@ export const PostCards = ({item}) => {
       <CardMedia
         component="img"
         height="194"
-        image={item?.image}
-        alt="Paella dish"
+        image={item?.image ? item.image : noImage }
+        alt=""
         sx={{height:'200px',objectFit:'contain'}}
       />
       <CardContent>
