@@ -182,6 +182,7 @@ export const PostCards = ({item}) => {
         </ExpandMore>
 
       </CardActions>
+      
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph variant='overline'>Comments</Typography>
