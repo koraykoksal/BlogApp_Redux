@@ -161,13 +161,24 @@ export const PostCards = ({item}) => {
 
 
               <Card sx={{mb:1,boxShadow:3,border:'1px solid #A8DF8E'}}>
-                <CardContent sx={{display:'flex',flexDirection:'column',gap:1}}>
+
+                <CardContent sx={{display:'flex',flexDirection:'wrap',alignItems:'center',gap:1}}>
+                  
+                  <Avatar  sx={{ bgcolor:'#C23373'}} aria-label="recipe">
+                  {com?.user?.charAt(0)} 
+                  </Avatar>
                   <Typography sx={{fontSize:'14px'}} color={"text.secondary"}>
                     {com.user}
                   </Typography>
-                  <Typography sx={{fontSize:'14px'}}>
+                  
+                </CardContent>
+
+                <CardContent>
+
+                <Typography sx={{fontSize:'14px'}}>
                     {com.content}
-                  </Typography>
+                </Typography>
+
                 </CardContent>
               </Card>
 
