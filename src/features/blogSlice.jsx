@@ -5,7 +5,8 @@ const initialState={
     error:false,
     allPost:[],
     categories:[],
-    comments:[]
+    comments:[],
+    likes:0,
 }
 
 
@@ -29,6 +30,7 @@ const blogSlice=createSlice({
         fetchSuccessPost:(state,action)=>{
             state.loading=false;
             state.allPost=action?.payload
+            
 
         },
         fetchSuccessCategory:(state,action)=>{

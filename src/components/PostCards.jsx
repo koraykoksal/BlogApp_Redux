@@ -55,10 +55,10 @@ export const PostCards = ({item}) => {
   const [comment, setComment] = useState("")
   const [commentData, setcommentData] = useState({})
   const [likeData, setlikeData] = useState({})
+  const [viewData, setviewData] = useState({})
 
 
-
-  const {commentPostData,getcommnetsData,likePostData} = useBlogCall()
+  const {commentPostData,getcommnetsData,likePostData,getViewBlogData} = useBlogCall()
 
   const handleChangeComment=(e)=>{
     setComment(e.target.value)
@@ -91,9 +91,20 @@ export const PostCards = ({item}) => {
           
           currentUser ? 
           (
-          <IconButton onClick={()=>navi('/postdetail/'+item.id)} aria-label="settings" sx={{display:'flex',flexDirection:'column'}}>
+          <IconButton onClick={()=>{
+
+            getViewBlogData('blogs',item.id)
+
+            navi('/postdetail/'+item.id)}} 
+
+            aria-label="settings" 
+            sx={{display:'flex',
+            flexDirection:'column'}}
+            >
+
             <VisibilityIcon/>
             <Typography variant='subtitle2'>Read More</Typography>
+
           </IconButton>
           ):(
           <IconButton onClick={()=>toastErrorNotify('Please Login !')} aria-label="settings" sx={{display:'flex',flexDirection:'column'}}>
@@ -141,7 +152,7 @@ export const PostCards = ({item}) => {
         <IconButton aria-label="show">
           <VisibilityIcon/> <Typography>{item?.post_views}</Typography>
         </IconButton>
-        
+
         {/* comment button */}
         <IconButton aria-label="comment">
           <ExpandMore
@@ -190,7 +201,7 @@ export const PostCards = ({item}) => {
             onClick={()=>
               {
                 commentPostData('comments',item.id,{...commentData,post:item.id,content:comment})
-                
+                setComment("")
               }
             }>Comment</Button>
           </Box>

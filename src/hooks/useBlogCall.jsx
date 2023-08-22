@@ -118,6 +118,7 @@ const useBlogCall = () => {
                 headers: { Authorization: `Token ${token}` },
             })
 
+            getLikesData(url,id)
             toastSuccessNotify('Liked ❤️')
 
         } catch (error) {
@@ -126,8 +127,49 @@ const useBlogCall = () => {
         }
         
     }
+
+
+    const getLikesData=async(url,id)=>{
+        distpatch(fetchStart())
+
+        try {
+
+            const {data} = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/${url}/${id}/`)
+
+            console.log(data)
+            
+        } catch (error) {
+            distpatch(fetchFail())
+            toastErrorNotify('Something Went Wrong !')
+        }
+    }
+
+    const getViewBlogData=async (url,id,info)=>{
+        
+        console.log(info)
+
+        distpatch(fetchStart())
+
+        try {
+
+            await axios(`${import.meta.env.VITE_BASE_URL}/api/${url}/${id}/`,
+            {
+                headers: { Authorization: `Token ${token}` },
+            })
+            
+        } catch (error) {
+            distpatch(fetchFail())
+            toastErrorNotify('Something Went Wrong !')
+        }
+    }
   
-    return {getBlogData,newPostData,getCategoryData,commentPostData,getcommnetsData,likePostData}
+    return {
+        getBlogData,
+        newPostData,
+        getCategoryData,
+        commentPostData,
+        getcommnetsData,
+        likePostData,getViewBlogData}
 }
 
 
