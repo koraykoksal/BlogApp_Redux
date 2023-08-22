@@ -1,7 +1,7 @@
 import React from 'react'
 import {toastSuccessNotify,toastErrorNotify} from '../helper/ToastNotify'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchFail, fetchStart, fetchSuccessPost,fetchSuccessCategory } from '../features/blogSlice'
+import { fetchFail, fetchStart, fetchSuccessPost,fetchSuccessCategory, fetchSuccessComments } from '../features/blogSlice'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -68,8 +68,45 @@ const useBlogCall = () => {
         }
     }
   
+    const commentPostData=async(url,id,info)=>{
+
+
+        distpatch(fetchStart())
+
+        try {
+            
+            await axios.post(`${import.meta.env.VITE_BASE_URL}/api/${url}/${id}/`,info,
+            {
+                headers: { Authorization: `Token ${token}` },
+            })
+
+            getcommnetsData(url,id)
+            toastSuccessNotify('Your Comment Published')
+            
+
+        } catch (error) {
+            distpatch(fetchFail())
+            toastErrorNotify('Something Went Wrong !')
+        }
+    }
+
+
+    const getcommnetsData=async (url,id)=>{
+        distpatch(fetchStart())
+
+        try {
+
+            const {data}= await axios.get(`${import.meta.env.VITE_BASE_URL}/api/${url}/${id}/`)
+
+            distpatch(fetchSuccessComments(data))
+            
+        } catch (error) {
+            distpatch(fetchFail())
+            toastErrorNotify('Comments not loaded !')
+        }
+    }
   
-    return {getBlogData,newPostData,getCategoryData}
+    return {getBlogData,newPostData,getCategoryData,commentPostData,getcommnetsData}
 }
 
 

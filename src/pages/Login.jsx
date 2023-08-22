@@ -19,9 +19,6 @@ export const Login = () => {
 
   const {token,currentUser} = useSelector((state)=>state.auth)
 
-  console.log("token : ",token)
-  console.log("currentUser : ",currentUser)
-
     const {login} = useAuthCall()
 
     //? harici validasyon şemasi

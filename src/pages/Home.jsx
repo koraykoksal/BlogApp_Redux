@@ -7,8 +7,6 @@ import { Box, Grid } from '@mui/material';
 import { PostCards } from '../components/PostCards';
 
 
-
-
 export const Home = () => {
 
 

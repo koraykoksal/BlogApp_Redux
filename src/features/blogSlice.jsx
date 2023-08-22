@@ -4,7 +4,8 @@ const initialState={
     loading:false,
     error:false,
     allPost:[],
-    categories:[]
+    categories:[],
+    comments:[]
 }
 
 
@@ -27,19 +28,27 @@ const blogSlice=createSlice({
         },
         fetchSuccessPost:(state,action)=>{
             state.loading=false;
-            state.allPost=action.payload
-            
+            state.allPost=action?.payload
 
         },
         fetchSuccessCategory:(state,action)=>{
             state.loading=false;
-            state.categories=action.payload
+            state.categories=action?.payload
+        },
+        fetchSuccessComments:(state,action)=>{
+            state.loading=false;
+            state.comments=action?.payload
         }
     }
 
 })
 
-export const {fetchStart,fetchFail,fetchSuccessPost,fetchSuccessCategory} = blogSlice.actions
+export const {
+    fetchStart,
+    fetchFail,
+    fetchSuccessPost,
+    fetchSuccessCategory,
+    fetchSuccessComments} = blogSlice.actions
 
 export default blogSlice.reducer;
 

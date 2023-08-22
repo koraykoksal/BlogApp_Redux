@@ -22,6 +22,9 @@ import noImage from '../assets/img/noImage.jpeg'
 import CommentIcon from '@mui/icons-material/Comment';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { Box, Button, TextField } from '@mui/material';
+import useBlogCall from '../hooks/useBlogCall';
+import { useState } from 'react';
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -47,6 +50,17 @@ export const PostCards = ({item}) => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const {comments}=useSelector((state)=>state.blog)
+
+  const [comment, setComment] = useState("")
+  const [commentData, setcommentData] = useState({})
+  const {commentPostData,getcommnetsData} = useBlogCall()
+
+  const handleChangeComment=(e)=>{
+    setComment(e.target.value)
+  }
+
 
   return (
     
@@ -121,7 +135,10 @@ export const PostCards = ({item}) => {
         <IconButton aria-label="comment">
           <ExpandMore
             expand={expanded}
-            onClick={handleExpandClick}
+            onClick={()=>{
+              handleExpandClick()
+              getcommnetsData('comments',item.id)
+            }}
             aria-expanded={expanded}
             aria-label="show more"
           >
@@ -140,6 +157,7 @@ export const PostCards = ({item}) => {
         >
           {/* <ExpandMoreIcon /> */}
         </ExpandMore>
+
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
@@ -152,15 +170,52 @@ export const PostCards = ({item}) => {
             type='text'
             name='comment'
             id='comment'
+            value={comment}
+            onChange={handleChangeComment}
             />
-            <Button type='button' variant='contained'>Comment</Button>
+            <Button 
+            type='submit' 
+            variant='contained' 
+            onClick={()=>
+              {
+                commentPostData('comments',item.id,{...commentData,post:item.id,content:comment})
+                
+              }
+            }>Comment</Button>
           </Box>
 
           {
-            item.comments.map((com)=>(
+            // item.comments.map((com)=>(
 
 
-              <Card sx={{mb:1,boxShadow:3,border:'1px solid #A8DF8E'}}>
+            //   <Card key={com.id} sx={{mb:1,boxShadow:3,border:'1px solid #A8DF8E'}}>
+
+            //     <CardContent sx={{display:'flex',flexDirection:'wrap',alignItems:'center',gap:1}}>
+                  
+            //       <Avatar  sx={{ bgcolor:'#C23373'}} aria-label="recipe">
+            //       {com?.user?.charAt(0)} 
+            //       </Avatar>
+            //       <Typography sx={{fontSize:'14px'}} color={"text.secondary"}>
+            //         {com.user}
+            //       </Typography>
+                  
+            //     </CardContent>
+
+            //     <CardContent>
+
+            //     <Typography sx={{fontSize:'14px'}}>
+            //         {com.content}
+            //     </Typography>
+
+            //     </CardContent>
+            //   </Card>
+
+            // ))
+
+            comments.map((com)=>(
+
+
+              <Card key={com.id} sx={{mb:1,boxShadow:3,border:'1px solid #A8DF8E'}}>
 
                 <CardContent sx={{display:'flex',flexDirection:'wrap',alignItems:'center',gap:1}}>
                   
