@@ -32,7 +32,7 @@ export const AppRouter = () => {
             <Route element={<PrivateRouter/>}>
             <Route path='profile' element={<Profile/>}/>
             <Route path='draft' element={<Draft/>}/>
-            <Route path='/detail/:id' element={<PostDetail/>}/>
+            <Route path='/:id' element={<PostDetail/>}/>
             </Route>
             <Route path='*' element={<NotFound/>}/>
         </Routes>

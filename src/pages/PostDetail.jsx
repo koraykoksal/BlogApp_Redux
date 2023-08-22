@@ -9,11 +9,9 @@ export const PostDetail = () => {
 
   const {state} = useLocation();
   const {id} = useParams()
-  const{viewPostData} = useSelector((state)=>state.blog)
 
-  console.log("viewed: ",viewPostData)
-  console.log(id)
-  
+  console.log("id: ",id)
+  console.log("state: ",state)
   
   return (
 

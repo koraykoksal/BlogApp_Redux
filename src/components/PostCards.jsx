@@ -95,7 +95,7 @@ export const PostCards = ({item}) => {
 
             getViewedBlogData('blogs',item.id)
 
-            navi(`${item.id}`) 
+            navi(`/${item.id}`, {state:item}) 
 
           }}
             aria-label="settings" 

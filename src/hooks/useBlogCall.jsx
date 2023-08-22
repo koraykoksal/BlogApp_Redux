@@ -1,7 +1,7 @@
 import React from 'react'
 import {toastSuccessNotify,toastErrorNotify} from '../helper/ToastNotify'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchFail, fetchStart, fetchSuccessPost,fetchSuccessCategory, fetchSuccessComments, fetchSuccessViewedPost } from '../features/blogSlice'
+import { fetchFail, fetchStart, fetchSuccessPost,fetchSuccessCategory, fetchSuccessComments } from '../features/blogSlice'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -151,13 +151,10 @@ const useBlogCall = () => {
 
         try {
 
-            const {data}=await axios(`${import.meta.env.VITE_BASE_URL}/api/${url}/${id}/`,
+            await axios(`${import.meta.env.VITE_BASE_URL}/api/${url}/${id}/`,
             {
                 headers: { Authorization: `Token ${token}` },
             })
-
-
-            distpatch(fetchSuccessViewedPost(data))
             
         } catch (error) {
             distpatch(fetchFail())
