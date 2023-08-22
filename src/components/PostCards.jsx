@@ -40,7 +40,7 @@ const ExpandMore = styled((props) => {
 
 export const PostCards = ({item}) => {
 
-  const {currentUser}=useSelector((state)=>state.auth)
+  const {currentUser,userInfo}=useSelector((state)=>state.auth)
   const distpatch=useDispatch()
   const navi=useNavigate()
   const dateEvent = new Date(item?.publish_date)
@@ -52,15 +52,21 @@ export const PostCards = ({item}) => {
   };
 
   const {comments}=useSelector((state)=>state.blog)
-
   const [comment, setComment] = useState("")
   const [commentData, setcommentData] = useState({})
-  const {commentPostData,getcommnetsData} = useBlogCall()
+  const [likeData, setlikeData] = useState({})
+
+
+
+  const {commentPostData,getcommnetsData,likePostData} = useBlogCall()
 
   const handleChangeComment=(e)=>{
     setComment(e.target.value)
   }
 
+  const handleLike=(data)=>{
+    likePostData('likes',data)
+  }
 
   return (
     
@@ -126,12 +132,17 @@ export const PostCards = ({item}) => {
 
       <CardActions disableSpacing>
 
-        <IconButton aria-label="add to favorites">
+        {/* like button */}
+        <IconButton aria-label="add to favorites" onClick={()=>likePostData('likes',item.id,{...likeData,post:item.id,user:userInfo.id})}>
           <FavoriteIcon /> <Typography>{item?.likes}</Typography>
         </IconButton>
+
+        {/* show button */}
         <IconButton aria-label="show">
           <VisibilityIcon/> <Typography>{item?.post_views}</Typography>
         </IconButton>
+        
+        {/* comment button */}
         <IconButton aria-label="comment">
           <ExpandMore
             expand={expanded}
@@ -185,32 +196,6 @@ export const PostCards = ({item}) => {
           </Box>
 
           {
-            // item.comments.map((com)=>(
-
-
-            //   <Card key={com.id} sx={{mb:1,boxShadow:3,border:'1px solid #A8DF8E'}}>
-
-            //     <CardContent sx={{display:'flex',flexDirection:'wrap',alignItems:'center',gap:1}}>
-                  
-            //       <Avatar  sx={{ bgcolor:'#C23373'}} aria-label="recipe">
-            //       {com?.user?.charAt(0)} 
-            //       </Avatar>
-            //       <Typography sx={{fontSize:'14px'}} color={"text.secondary"}>
-            //         {com.user}
-            //       </Typography>
-                  
-            //     </CardContent>
-
-            //     <CardContent>
-
-            //     <Typography sx={{fontSize:'14px'}}>
-            //         {com.content}
-            //     </Typography>
-
-            //     </CardContent>
-            //   </Card>
-
-            // ))
 
             comments.map((com)=>(
 

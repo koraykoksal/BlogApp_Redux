@@ -34,37 +34,37 @@ const style = {
 export default function PostModal({open,setOpen}) {
   
   let currentDate=new Date()
+  const {categories}=useSelector((state)=>state.blog)
   const handleClose = () => setOpen(false);
   const {newPostData,getBlogData} = useBlogCall()
 
-  const [info, setInfo] = useState({
-    title:"",
-    content:"",
-    category:"",
-    image_link:"",
-    status:"p", //p:published , d:draft
-    slug:"string"
-  })
-  const {categories}=useSelector((state)=>state.blog)
-
-  const handleChange=(e)=>{
-    setInfo({...info,[e.target.name]:e.target.value})
-  }
-
-  const handleSubmit=(e)=>{
-    e.preventDefault()
-    newPostData('blogs',info)
-    getBlogData('blogs')
-    handleClose()
-    setInfo({    
-    title:"",
-    content:"",
-    category:"",
-    image_link:"",})
-  }
+  // const [info, setInfo] = useState({
+  //   title:"",
+  //   content:"",
+  //   category:"",
+  //   image_link:"",
+  //   status:"p", //p:published , d:draft
+  //   slug:"string"
+  // })
 
 
-  console.log(info)
+  // const handleChange=(e)=>{
+  //   setInfo({...info,[e.target.name]:e.target.value})
+  // }
+
+  // const handleSubmit=(e)=>{
+  //   e.preventDefault()
+  //   newPostData('blogs',info)
+  //   getBlogData('blogs')
+  //   handleClose()
+  //   setInfo({    
+  //   title:"",
+  //   content:"",
+  //   category:"",
+  //   image_link:"",})
+  // }
+
+
 
   return (
     <div>

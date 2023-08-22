@@ -105,8 +105,29 @@ const useBlogCall = () => {
             toastErrorNotify('Comments not loaded !')
         }
     }
+
+
+    const likePostData=async(url,id,info)=>{
+
+        distpatch(fetchStart())
+
+        try {
+            
+            await axios.post(`${import.meta.env.VITE_BASE_URL}/api/${url}/${id}/`,info,
+            {
+                headers: { Authorization: `Token ${token}` },
+            })
+
+            toastSuccessNotify('Liked ❤️')
+
+        } catch (error) {
+            distpatch(fetchFail())
+            toastErrorNotify('Something Went Wrong !')
+        }
+        
+    }
   
-    return {getBlogData,newPostData,getCategoryData,commentPostData,getcommnetsData}
+    return {getBlogData,newPostData,getCategoryData,commentPostData,getcommnetsData,likePostData}
 }
 
 
