@@ -19,8 +19,8 @@ import { useNavigate } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { toastErrorNotify } from '../helper/ToastNotify';
 import noImage from '../assets/img/noImage.jpeg'
-
-
+import CommentIcon from '@mui/icons-material/Comment';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -108,20 +108,36 @@ export const PostCards = ({item}) => {
           {item?.content}
         </Typography>
       </CardContent>
+
       <CardActions disableSpacing>
+
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+          <FavoriteIcon /> <Typography>{item?.likes}</Typography>
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
+        <IconButton aria-label="show">
+          <VisibilityIcon/> <Typography>{item?.post_views}</Typography>
         </IconButton>
+        <IconButton aria-label="comment">
+          <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <CommentIcon/>
+          </ExpandMore>
+        </IconButton>
+        <IconButton aria-label='bookmark'>
+          <BookmarkBorderIcon/>
+        </IconButton>
+
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <ExpandMoreIcon />
+          {/* <ExpandMoreIcon /> */}
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
