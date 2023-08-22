@@ -13,6 +13,7 @@ import { NotFound } from '../pages/NotFound'
 import { BrowserRouter } from 'react-router-dom'
 import { About } from '../pages/About'
 import { Profile } from '../pages/Profile'
+import { Draft } from '../pages/Draft'
 
 export const AppRouter = () => {
   return (
@@ -28,6 +29,7 @@ export const AppRouter = () => {
             <Route path='about' element={<About/>}/>
             <Route element={<PrivateRouter/>}>
             <Route path='profile' element={<Profile/>}/>
+            <Route path='draft' element={<Draft/>}/>
             <Route path='/detail/:id' element={<PostDetail/>}/>
             </Route>
             <Route path='*' element={<NotFound/>}/>

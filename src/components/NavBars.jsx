@@ -188,6 +188,7 @@ function Navbars() {
 
               <Box onClick={handleCloseUserMenu} sx={{display:'flex',flexDirection:'column'}}>
                   <Button onClick={()=>navi('/profile')}>Profile</Button>
+                  <Button onClick={()=>navi('/draft')}>Draft</Button>
                   <Button onClick={()=>logout()}>Logout</Button>
               </Box>
             </Menu>

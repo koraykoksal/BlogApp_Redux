@@ -124,7 +124,7 @@ export const PostCards = ({item}) => {
             aria-expanded={expanded}
             aria-label="show more"
           >
-            <CommentIcon/>
+            <CommentIcon/> <Typography>{item?.comment_count}</Typography>
           </ExpandMore>
         </IconButton>
         <IconButton aria-label='bookmark'>
