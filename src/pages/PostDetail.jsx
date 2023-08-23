@@ -83,7 +83,7 @@ export const PostDetail = () => {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            {state?.author?.charAt(0)}
+            {viewedPost?.author?.charAt(0)}
           </Avatar>
         }
         action={
