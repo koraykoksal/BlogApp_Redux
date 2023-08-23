@@ -30,6 +30,9 @@ export const MyPost = () => {
     const {currentUser,userInfo} = useSelector((state)=>state.auth)
     const{allPost} = useSelector((state)=>state.blog)
 
+    console.log(allPost)
+    console.log(userInfo)
+
   return (
     <Grid sx={{mt:10}}>
 

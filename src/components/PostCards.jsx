@@ -153,7 +153,6 @@ export const PostCards = ({item}) => {
             <Badge badgeContent={item?.likes} color="primary">
               <FavoriteIcon sx={{'&:hover':{cursor:'pointer'}}} color='action' onClick={()=>{
               likePostData('likes',item.id,{...likeData,post:item.id,user:userInfo.id})
-              getBlogData('blogs')
               }}/>
             </Badge>
           
@@ -226,7 +225,7 @@ export const PostCards = ({item}) => {
                   onClick={()=>
                     {
                       commentPostData('comments',item.id,{...commentData,post:item.id,content:comment})
-                      getBlogData('blogs') //burada blogs dataya tekrar istel atılır çünkü yorum count bilgisine ulaşmak için
+                      getBlogData('blogs') //burada blogs dataya tekrar istek atılır çünkü yorum count bilgisine ulaşmak için
                       setComment("")
                     }
                   }

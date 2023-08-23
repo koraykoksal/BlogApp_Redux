@@ -80,8 +80,11 @@ const useBlogCall = () => {
                 headers: { Authorization: `Token ${token}` },
             })
 
-            
+            //yapılan yorum bilgisini sayfa render olmadan görüntülemek için istek atılır
             getcommnetsData(url,id)
+
+            getViewedBlogData('blogs',id) 
+
             toastSuccessNotify('Your Comment Published')
             
 
@@ -119,7 +122,11 @@ const useBlogCall = () => {
                 headers: { Authorization: `Token ${token}` },
             })
 
-            getLikesData(url,id)
+            //like işlemi yapıldıktan sonra like count değerini görmek için tekrar get isteği atılır
+            getBlogData('blogs') 
+            //detail sayfasında like isteği atılırsa ilgili postun datasını render etmek için kullanılır
+            getViewedBlogData('blogs',id) 
+            
             toastSuccessNotify('Liked ❤️')
 
         } catch (error) {
@@ -130,20 +137,6 @@ const useBlogCall = () => {
     }
 
 
-    const getLikesData=async(url,id)=>{
-        distpatch(fetchStart())
-
-        try {
-
-            const {data} = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/${url}/${id}/`)
-
-            console.log(data)
-            
-        } catch (error) {
-            distpatch(fetchFail())
-            toastErrorNotify('Something Went Wrong !')
-        }
-    }
 
 
     const getViewedBlogData=async (url,id)=>{

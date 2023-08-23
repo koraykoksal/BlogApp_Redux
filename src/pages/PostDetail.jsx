@@ -121,7 +121,6 @@ export const PostDetail = () => {
         <Badge badgeContent={viewedPost?.likes} color="primary">
           <FavoriteIcon color='action' sx={{'&:hover':{cursor:'pointer'}}} onClick={()=>{
           likePostData('likes',state.id,{...likeData,post:viewedPost.id,user:userInfo.id})
-          getViewedBlogData('blogs',id)
         }}/>
         </Badge>
 
@@ -182,7 +181,6 @@ export const PostDetail = () => {
             onClick={()=>
               {
                 commentPostData('comments',id,{...commentData,post:viewedPost.id,content:comment})
-                getViewedBlogData('blogs',id)
                 setComment("")
               }
             }>Comment</Button>
