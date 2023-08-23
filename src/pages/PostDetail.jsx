@@ -86,11 +86,11 @@ export const PostDetail = () => {
             {viewedPost?.author?.charAt(0)}
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
+        // action={
+        //   <IconButton aria-label="settings">
+        //     <MoreVertIcon />
+        //   </IconButton>
+        // }
         title={viewedPost.author}
         subheader={dateEvent.toDateString()}
       />
@@ -145,9 +145,9 @@ export const PostDetail = () => {
           />
         </Badge>
 
-        <IconButton aria-label='bookmark'>
+        {/* <IconButton aria-label='bookmark'>
           <BookmarkBorderIcon/>
-        </IconButton>
+        </IconButton> */}
 
         <ExpandMore
           expand={expanded}

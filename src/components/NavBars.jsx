@@ -192,10 +192,10 @@ function Navbars() {
             >
 
               <Box onClick={handleCloseUserMenu} sx={{display:'flex',flexDirection:'column'}}>
-                  <Button onClick={()=>navi('/profile')}>Profile</Button>
-                  <Button onClick={()=>navi('/mypost')}>My Post</Button>
-                  <Button onClick={()=>navi('/draft')}>Draft</Button>
-                  <Button onClick={()=>logout()}>Logout</Button>
+                  <Button sx={{color:'#000000'}} onClick={()=>navi('/profile')}>Profile</Button>
+                  <Button sx={{color:'#000000'}} onClick={()=>navi('/mypost')}>My Post</Button>
+                  {/* <Button sx={{color:'#000000'}} onClick={()=>navi('/draft')}>Draft</Button> */}
+                  <Button sx={{color:'#000000'}} onClick={()=>logout()}>Logout</Button>
                   <MenuItem>
                   
                   </MenuItem>

@@ -186,9 +186,9 @@ export const PostCards = ({item}) => {
         />
         </Badge>
 
-        <IconButton aria-label='bookmark'>
+        {/* <IconButton aria-label='bookmark'>
           <BookmarkBorderIcon/>
-        </IconButton>
+        </IconButton> */}
 
         <ExpandMore
           expand={expanded}
