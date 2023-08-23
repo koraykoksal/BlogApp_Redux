@@ -58,15 +58,13 @@ export const PostCards = ({item}) => {
   const [viewData, setviewData] = useState({})
 
 
-  const {commentPostData,getcommnetsData,likePostData,getViewedBlogData} = useBlogCall()
+  const {commentPostData,getcommnetsData,likePostData,getViewedBlogData,getBlogData} = useBlogCall()
 
   const handleChangeComment=(e)=>{
     setComment(e.target.value)
   }
 
-  const handleLike=(data)=>{
-    likePostData('likes',data)
-  }
+
 
   return (
     
@@ -94,8 +92,9 @@ export const PostCards = ({item}) => {
           <IconButton onClick={()=>{
 
             getViewedBlogData('blogs',item.id)
-
+            getBlogData('blogs')
             navi(`/${item.id}`, {state:item}) 
+            //navi(`/${item.id}`, {state:item}) 
 
           }}
             aria-label="settings" 
@@ -145,8 +144,14 @@ export const PostCards = ({item}) => {
       <CardActions disableSpacing>
 
         {/* like button */}
-        <IconButton aria-label="add to favorites" onClick={()=>likePostData('likes',item.id,{...likeData,post:item.id,user:userInfo.id})}>
-          <FavoriteIcon /> <Typography>{item?.likes}</Typography>
+        <IconButton 
+        aria-label="add to favorites" 
+        >
+        <FavoriteIcon onClick={()=>{
+          likePostData('likes',item.id,{...likeData,post:item.id,user:userInfo.id})
+          getBlogData('blogs')
+        }}/> 
+        <Typography>{item?.likes}</Typography>
         </IconButton>
 
         {/* show button */}
@@ -182,7 +187,7 @@ export const PostCards = ({item}) => {
         </ExpandMore>
 
       </CardActions>
-      
+
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph variant='overline'>Comments</Typography>
@@ -199,10 +204,11 @@ export const PostCards = ({item}) => {
             />
             <Button 
             type='submit' 
-            variant='contained' 
+            variant='contained'
             onClick={()=>
               {
                 commentPostData('comments',item.id,{...commentData,post:item.id,content:comment})
+                getBlogData('blogs') //burada blogs dataya tekrar istel atılır çünkü yorum count bilgisine ulaşmak için
                 setComment("")
               }
             }>Comment</Button>

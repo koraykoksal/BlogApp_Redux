@@ -1,7 +1,7 @@
 import React from 'react'
 import {toastSuccessNotify,toastErrorNotify} from '../helper/ToastNotify'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchFail, fetchStart, fetchSuccessPost,fetchSuccessCategory, fetchSuccessComments } from '../features/blogSlice'
+import { fetchFail, fetchStart, fetchSuccessPost,fetchSuccessCategory, fetchSuccessComments, fetchViewSuccessPost } from '../features/blogSlice'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -80,6 +80,7 @@ const useBlogCall = () => {
                 headers: { Authorization: `Token ${token}` },
             })
 
+            
             getcommnetsData(url,id)
             toastSuccessNotify('Your Comment Published')
             
@@ -144,6 +145,7 @@ const useBlogCall = () => {
         }
     }
 
+
     const getViewedBlogData=async (url,id)=>{
         
 
@@ -151,10 +153,12 @@ const useBlogCall = () => {
 
         try {
 
-            await axios(`${import.meta.env.VITE_BASE_URL}/api/${url}/${id}/`,
+            const {data} = await axios(`${import.meta.env.VITE_BASE_URL}/api/${url}/${id}/`,
             {
                 headers: { Authorization: `Token ${token}` },
             })
+
+            distpatch(fetchViewSuccessPost(data))
             
         } catch (error) {
             distpatch(fetchFail())
@@ -168,7 +172,8 @@ const useBlogCall = () => {
         getCategoryData,
         commentPostData,
         getcommnetsData,
-        likePostData,getViewedBlogData}
+        likePostData,
+        getViewedBlogData}
 }
 
 

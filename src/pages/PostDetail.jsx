@@ -37,8 +37,13 @@ const ExpandMore = styled((props) => {
 
 export const PostDetail = () => {
 
+  const {currentUser,userInfo}=useSelector((state)=>state.auth)
+
   const {state} = useLocation();
   const {id} = useParams()
+
+  const {viewedPost}=useSelector((state)=>state.blog)
+
   const dateEvent = new Date(state?.publish_date)
 
   const {comments}=useSelector((state)=>state.blog)
@@ -48,7 +53,7 @@ export const PostDetail = () => {
   const [viewData, setviewData] = useState({})
 
 
-  const {commentPostData,getcommnetsData,likePostData,getViewedBlogData} = useBlogCall()
+  const {commentPostData,getcommnetsData,likePostData,getViewedBlogData,getBlogData} = useBlogCall()
 
   console.log("id: ",id)
   console.log("state: ",state)
@@ -81,39 +86,45 @@ export const PostDetail = () => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={state.author}
+        title={viewedPost.author}
         subheader={dateEvent.toDateString()}
       />
       <CardMedia
         component="img"
         height="194"
-        image={state?.image ? state.image : noImage }
+        image={viewedPost?.image ? viewedPost.image : noImage }
         sx={{height:'300px',objectFit:'contain'}}
       />
       <CardContent>
       <Typography variant="body2" color="text.secondary">
-          Title : {state?.title}
+          Title : {viewedPost?.title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Category : {state?.category_name}
+          Category : {viewedPost?.category_name}
         </Typography>
       </CardContent>
       <CardContent sx={{height:'150px',overflow:'auto'}}>
         <Typography variant="body2" color="text.secondary">
-          {state?.content}
+          {viewedPost?.content}
         </Typography>
       </CardContent>
 
       <CardActions disableSpacing>
 
         {/* like button */}
-        <IconButton aria-label="add to favorites" onClick={()=>likePostData('likes',state.id,{...likeData,post:state.id,user:userInfo.id})}>
-          <FavoriteIcon /> <Typography>{state?.likes}</Typography>
+        <IconButton 
+        aria-label="add to favorites" 
+        >
+        <FavoriteIcon onClick={()=>{
+          likePostData('likes',state.id,{...likeData,post:viewedPost.id,user:userInfo.id})
+          getViewedBlogData('blogs',id)
+        }}/> 
+        <Typography>{viewedPost?.likes}</Typography>
         </IconButton>
 
         {/* show button */}
         <IconButton aria-label="show">
-          <VisibilityIcon/> <Typography>{state?.post_views}</Typography>
+          <VisibilityIcon/> <Typography>{viewedPost?.post_views}</Typography>
         </IconButton>
 
         {/* comment button */}
@@ -122,12 +133,12 @@ export const PostDetail = () => {
             expand={expanded}
             onClick={()=>{
               handleExpandClick()
-              getcommnetsData('comments',state.id)
+              getcommnetsData('comments',id)
             }}
             aria-expanded={expanded}
             aria-label="show more"
           >
-            <CommentIcon/> <Typography>{state?.comment_count}</Typography>
+            <CommentIcon/> <Typography>{viewedPost?.comment_count}</Typography>
           </ExpandMore>
         </IconButton>
         <IconButton aria-label='bookmark'>
@@ -165,7 +176,8 @@ export const PostDetail = () => {
             variant='contained' 
             onClick={()=>
               {
-                commentPostData('comments',item.id,{...commentData,post:item.id,content:comment})
+                commentPostData('comments',id,{...commentData,post:viewedPost.id,content:comment})
+                getViewedBlogData('blogs',id)
                 setComment("")
               }
             }>Comment</Button>
