@@ -8,20 +8,15 @@ import DialogTitle from '@mui/material/DialogTitle';
 import useBlogCall from '../hooks/useBlogCall';
 import { useEffect } from 'react';
 
-export const AlertModal = ({open,setOpen,item,userPost}) => {
+export const AlertModal = ({openAlert,setOpenAlert,item,userPost}) => {
 
 
     const {deletePostData,getBlogData}=useBlogCall()
   
     const handleClose = () => {
-      setOpen(false);
+      setOpenAlert(false);
     };
 
-    // useEffect(() => {
-
-    //     getBlogData('blogs')
-
-    // }, [userPost])
     
 
   return (
@@ -29,7 +24,7 @@ export const AlertModal = ({open,setOpen,item,userPost}) => {
         <div>
         
         <Dialog
-        open={open}
+        open={openAlert}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"

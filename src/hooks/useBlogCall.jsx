@@ -196,6 +196,29 @@ const useBlogCall = () => {
         }
     }
 
+    const updatePostData=async (url,id,info)=>{
+
+        console.log(info)
+        console.log(url,id)
+
+        distpatch(fetchStart())
+
+        try {
+
+            await axios.put(`${import.meta.env.VITE_BASE_URL}/api/${url}/${id}/`,info,
+            {
+                headers:{Authorization:`Token ${token}`}
+            })
+
+            getBlogData('blogs')
+            toastSuccessNotify('Update Successful ✅')
+            
+        } catch (error) {
+            distpatch(fetchFail())
+            toastErrorNotify('Something Went Wrong !')
+        }
+    }
+
     return {
         getBlogData,
         newPostData,
@@ -205,7 +228,8 @@ const useBlogCall = () => {
         likePostData,
         getViewedBlogData,
         getUserPostData,
-        deletePostData
+        deletePostData,
+        updatePostData
     }
 }
 

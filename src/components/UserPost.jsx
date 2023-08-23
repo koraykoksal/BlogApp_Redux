@@ -27,6 +27,7 @@ import { useNavigate } from 'react-router-dom';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { AlertModal } from './AlertModal';
+import { UpdateModal } from './UpdateModal';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -53,7 +54,8 @@ export const UserPost = ({item,userBlogs,userPost}) => {
     const [likeData, setlikeData] = useState({})
     const [viewData, setviewData] = useState({})
 
-    const [open, setOpen] = React.useState(false);
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const [openUpdate, setOpenUpdate] = React.useState(false);
 
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -77,9 +79,13 @@ export const UserPost = ({item,userBlogs,userPost}) => {
 
     
 
-    const handleClickOpen = () => {
-      setOpen(true);
+    const handleClickOpenDeleteModal = () => {
+      setOpenAlert(true);
     };
+    const handleClickOpenUpdateModal = () => {
+      setOpenUpdate(true);
+    };
+
   return (
 
     
@@ -151,9 +157,11 @@ export const UserPost = ({item,userBlogs,userPost}) => {
 
               <Box onClick={handleCloseUserMenu} sx={{display:'flex',flexDirection:'column'}}>
                   <Button 
+                  onClick={handleClickOpenUpdateModal}
                   sx={{color:'#FFC436','&:hover':{backgroundColor:'#F0F0F0'}}}>Edit</Button>
+
                   <Button 
-                  onClick={handleClickOpen}
+                  onClick={handleClickOpenDeleteModal}
                   sx={{color:'#C70039','&:hover':{backgroundColor:'#F0F0F0'}}}>Delete</Button>
               </Box>
             </Menu>
@@ -255,7 +263,8 @@ export const UserPost = ({item,userBlogs,userPost}) => {
 
         </CardContent>
       </Collapse>
-      <AlertModal open={open} setOpen={setOpen} item={item}/>
+      <AlertModal openAlert={openAlert} setOpenAlert={setOpenAlert} item={item}/>
+      <UpdateModal openUpdate={openUpdate} setOpenUpdate={setOpenUpdate} item={item} />
     </Card>
 
   )
