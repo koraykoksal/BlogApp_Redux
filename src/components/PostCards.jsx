@@ -24,6 +24,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { Box, Button, TextField } from '@mui/material';
 import useBlogCall from '../hooks/useBlogCall';
 import { useState } from 'react';
+import Badge from '@mui/material/Badge';
 
 
 const ExpandMore = styled((props) => {
@@ -141,49 +142,51 @@ export const PostCards = ({item}) => {
         </Typography>
       </CardContent>
 
-      <CardActions disableSpacing>
+      <CardActions disableSpacing sx={{gap:2}}>
 
         {/* like button */}
-        <IconButton 
-        aria-label="add to favorites" 
-        >
+        
 
         {
           currentUser ? 
           (
-          <FavoriteIcon onClick={()=>{
-            likePostData('likes',item.id,{...likeData,post:item.id,user:userInfo.id})
-            getBlogData('blogs')
-          }}/>
+            <Badge badgeContent={item?.likes} color="primary">
+              <FavoriteIcon sx={{'&:hover':{cursor:'pointer'}}} color='action' onClick={()=>{
+              likePostData('likes',item.id,{...likeData,post:item.id,user:userInfo.id})
+              getBlogData('blogs')
+              }}/>
+            </Badge>
+          
+
           ):(
-            <FavoriteIcon onClick={()=>{
+            
+            <Badge badgeContent={item?.likes} color="primary">
+              <FavoriteIcon sx={{'&:hover':{cursor:'pointer'}}} color='action' onClick={()=>{
               toastErrorNotify('Please Login !')
             }}/>
+            </Badge>
           )
         }
          
-        <Typography>{item?.likes}</Typography>
-        </IconButton>
 
         {/* show button */}
-        <IconButton aria-label="show">
-          <VisibilityIcon/> <Typography>{item?.post_views}</Typography>
-        </IconButton>
+        <Badge badgeContent={item?.post_views} color="primary">
+        <VisibilityIcon sx={{'&:hover':{cursor:'pointer'}}} color='action'/>
+        </Badge>
 
         {/* comment button */}
-        <IconButton aria-label="comment">
-          <ExpandMore
-            expand={expanded}
-            onClick={()=>{
-              handleExpandClick()
-              getcommnetsData('comments',item.id)
-            }}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <CommentIcon/> <Typography>{item?.comment_count}</Typography>
-          </ExpandMore>
-        </IconButton>
+        <Badge badgeContent={item?.comment_count} color="primary">
+        <CommentIcon
+        sx={{'&:hover':{cursor:'pointer'}}}
+        color='action'
+        expand={expanded}
+        onClick={()=>{
+          handleExpandClick()
+          getcommnetsData('comments',item.id)
+        }}
+        />
+        </Badge>
+
         <IconButton aria-label='bookmark'>
           <BookmarkBorderIcon/>
         </IconButton>
