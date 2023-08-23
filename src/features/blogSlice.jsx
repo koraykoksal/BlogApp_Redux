@@ -8,6 +8,7 @@ const initialState={
     comments:[],
     likes:0,
     viewedPost:[],
+    userBlogs:[]
 }
 
 const blogSlice=createSlice({
@@ -44,6 +45,10 @@ const blogSlice=createSlice({
         fetchViewSuccessPost:(state,action)=>{
             state.loading = false;
             state.viewedPost = action?.payload
+        },
+        fetchSuccessUserBlog:(state,action)=>{
+            state.loading=false;
+            state.userBlogs=action?.payload;
         }
     }
 
@@ -55,7 +60,9 @@ export const {
     fetchSuccessPost,
     fetchSuccessCategory,
     fetchSuccessComments,
-    fetchViewSuccessPost
+    fetchViewSuccessPost,
+    fetchSuccessUserBlog
+    
     } = blogSlice.actions
 
 export default blogSlice.reducer;

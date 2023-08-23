@@ -1,7 +1,7 @@
 import React from 'react'
 import {toastSuccessNotify,toastErrorNotify} from '../helper/ToastNotify'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchFail, fetchStart, fetchSuccessPost,fetchSuccessCategory, fetchSuccessComments, fetchViewSuccessPost } from '../features/blogSlice'
+import { fetchFail, fetchStart, fetchSuccessPost,fetchSuccessCategory, fetchSuccessComments, fetchViewSuccessPost, fetchSuccessUserBlog } from '../features/blogSlice'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -137,8 +137,6 @@ const useBlogCall = () => {
     }
 
 
-
-
     const getViewedBlogData=async (url,id)=>{
         
 
@@ -159,6 +157,27 @@ const useBlogCall = () => {
         }
     }
   
+
+    const getUserPostData=async (id)=>{
+
+        distpatch(fetchStart())
+
+        try {
+            
+            const {data} = await axios(`${import.meta.env.VITE_BASE_URL}/api/blogs/?author=${id}`,
+            {
+                headers: { Authorization: `Token ${token}` },
+            })
+
+            distpatch(fetchSuccessUserBlog(data))
+            
+        } catch (error) {
+            distpatch(fetchFail())
+            toastErrorNotify('Something Went Wrong !')
+        }
+    }
+
+
     return {
         getBlogData,
         newPostData,
@@ -166,7 +185,8 @@ const useBlogCall = () => {
         commentPostData,
         getcommnetsData,
         likePostData,
-        getViewedBlogData}
+        getViewedBlogData,
+        getUserPostData}
 }
 
 
