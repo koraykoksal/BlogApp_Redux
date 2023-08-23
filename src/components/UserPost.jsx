@@ -24,7 +24,9 @@ import { useState } from 'react';
 import useBlogCall from '../hooks/useBlogCall';
 import { ImageOutlined } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import { AlertModal } from './AlertModal';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -51,6 +53,10 @@ export const UserPost = ({item,userBlogs,userPost}) => {
     const [likeData, setlikeData] = useState({})
     const [viewData, setviewData] = useState({})
 
+    const [open, setOpen] = React.useState(false);
+
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
+
     const {commentPostData,getcommnetsData,likePostData,getViewedBlogData,getBlogData} = useBlogCall()
 
     const handleExpandClick = () => {
@@ -61,7 +67,19 @@ export const UserPost = ({item,userBlogs,userPost}) => {
         setComment(e.target.value)
     };
 
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+    };
 
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
+
+    
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
   return (
 
     
@@ -74,7 +92,7 @@ export const UserPost = ({item,userBlogs,userPost}) => {
         }
         action={
           <IconButton aria-label="settings">
-            <MoreVertIcon />
+            <MoreVertIcon onClick={handleOpenUserMenu} />
           </IconButton>
         }
         title={item?.author}
@@ -113,6 +131,33 @@ export const UserPost = ({item,userBlogs,userPost}) => {
             <Badge badgeContent={item?.post_views} color="primary">
             <VisibilityIcon sx={{'&:hover':{cursor:'pointer'}}} color='action'/>
             </Badge>
+
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+
+              <Box onClick={handleCloseUserMenu} sx={{display:'flex',flexDirection:'column'}}>
+                  <Button 
+                  sx={{color:'#FFC436','&:hover':{backgroundColor:'#F0F0F0'}}}>Edit</Button>
+                  <Button 
+                  onClick={handleClickOpen}
+                  sx={{color:'#C70039','&:hover':{backgroundColor:'#F0F0F0'}}}>Delete</Button>
+              </Box>
+            </Menu>
+
 
             <Badge badgeContent={item?.comment_count} color="primary">
             <CommentIcon
@@ -210,6 +255,7 @@ export const UserPost = ({item,userBlogs,userPost}) => {
 
         </CardContent>
       </Collapse>
+      <AlertModal open={open} setOpen={setOpen} item={item}/>
     </Card>
 
   )

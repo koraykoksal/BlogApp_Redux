@@ -177,6 +177,23 @@ const useBlogCall = () => {
         }
     }
 
+    const deletePostData=async(url,id)=>{
+        distpatch(fetchStart())
+
+        try {
+
+            await axios.delete(`${import.meta.env.VITE_BASE_URL}/api/${url}/${id}/`,
+            {
+                headers: { Authorization: `Token ${token}` },
+            })
+
+            toastSuccessNotify('The Post Deleted ✅')
+            
+        } catch (error) {
+            distpatch(fetchFail())
+            toastErrorNotify('Something Went Wrong !')
+        }
+    }
 
     return {
         getBlogData,
@@ -186,7 +203,9 @@ const useBlogCall = () => {
         getcommnetsData,
         likePostData,
         getViewedBlogData,
-        getUserPostData}
+        getUserPostData,
+        deletePostData
+    }
 }
 
 
