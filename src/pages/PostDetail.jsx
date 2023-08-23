@@ -55,10 +55,6 @@ export const PostDetail = () => {
 
   const {commentPostData,getcommnetsData,likePostData,getViewedBlogData,getBlogData} = useBlogCall()
 
-  console.log("id: ",id)
-  console.log("state: ",state)
-
-
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
