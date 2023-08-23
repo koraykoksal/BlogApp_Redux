@@ -261,9 +261,15 @@ export const PostCards = ({item}) => {
                   <Avatar  sx={{ bgcolor:'#C23373'}} aria-label="recipe">
                   {com?.user?.charAt(0)} 
                   </Avatar>
+                  <Box>
                   <Typography sx={{fontSize:'14px'}} color={"text.secondary"}>
                     {com.user}
                   </Typography>
+                  <Typography sx={{fontSize:'14px'}} color={"text.secondary"}>
+                    {new Date(com.time_stamp).toLocaleString()}
+                  </Typography>
+                  </Box>
+                  
                   
                 </CardContent>
 

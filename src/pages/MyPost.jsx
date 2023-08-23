@@ -63,7 +63,7 @@ export const MyPost = () => {
       setComment(e.target.value)
     }
 
-
+    console.log(comments)
 
     const userPostControl=()=>{
 
@@ -180,7 +180,6 @@ export const MyPost = () => {
                 onClick={()=>{
                   handleExpandClick()
                   getcommnetsData('comments',item.id)
-                  console.log(item.id)
                 }}
                 />
                 </Badge>
@@ -238,9 +237,15 @@ export const MyPost = () => {
                           <Avatar  sx={{ bgcolor:'#C23373'}} aria-label="recipe">
                           {com?.user?.charAt(0)} 
                           </Avatar>
+                          <Box>
                           <Typography sx={{fontSize:'14px'}} color={"text.secondary"}>
                             {com.user}
                           </Typography>
+                          <Typography sx={{fontSize:'14px'}} color={"text.secondary"}>
+                            {new Date(com.time_stamp).toLocaleString()}
+                          </Typography>
+                          </Box>
+                          
                           
                         </CardContent>
 
