@@ -22,6 +22,8 @@ import useBlogCall from '../hooks/useBlogCall';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CommentIcon from '@mui/icons-material/Comment';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import { useEffect } from 'react';
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -64,6 +66,12 @@ export const PostDetail = () => {
   const handleChangeComment=(e)=>{
     setComment(e.target.value)
   }
+
+  useEffect(() => {
+
+    getViewedBlogData('blogs',id)
+  }, [!viewedPost])
+  
   
   return (
 

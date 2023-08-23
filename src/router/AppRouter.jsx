@@ -15,6 +15,7 @@ import { About } from '../pages/About'
 import { Profile } from '../pages/Profile'
 import { Draft } from '../pages/Draft'
 import { Contact } from '../pages/Contact'
+import { MyPost } from '../pages/MyPost'
 
 export const AppRouter = () => {
   return (
@@ -29,6 +30,7 @@ export const AppRouter = () => {
             <Route path='register' element={<Register/>}/>
             <Route path='about' element={<About/>}/>
             <Route path='contact' element={<Contact/>}/>
+            <Route path='mypost' element={<MyPost/>}/>
             <Route element={<PrivateRouter/>}>
             <Route path='profile' element={<Profile/>}/>
             <Route path='draft' element={<Draft/>}/>

@@ -47,6 +47,7 @@ function Navbars() {
     }
   ];
 
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -192,8 +193,12 @@ function Navbars() {
 
               <Box onClick={handleCloseUserMenu} sx={{display:'flex',flexDirection:'column'}}>
                   <Button onClick={()=>navi('/profile')}>Profile</Button>
+                  <Button onClick={()=>navi('/mypost')}>My Post</Button>
                   <Button onClick={()=>navi('/draft')}>Draft</Button>
                   <Button onClick={()=>logout()}>Logout</Button>
+                  <MenuItem>
+                  
+                  </MenuItem>
               </Box>
             </Menu>
 

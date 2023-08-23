@@ -147,10 +147,21 @@ export const PostCards = ({item}) => {
         <IconButton 
         aria-label="add to favorites" 
         >
-        <FavoriteIcon onClick={()=>{
-          likePostData('likes',item.id,{...likeData,post:item.id,user:userInfo.id})
-          getBlogData('blogs')
-        }}/> 
+
+        {
+          currentUser ? 
+          (
+          <FavoriteIcon onClick={()=>{
+            likePostData('likes',item.id,{...likeData,post:item.id,user:userInfo.id})
+            getBlogData('blogs')
+          }}/>
+          ):(
+            <FavoriteIcon onClick={()=>{
+              toastErrorNotify('Please Login !')
+            }}/>
+          )
+        }
+         
         <Typography>{item?.likes}</Typography>
         </IconButton>
 
@@ -202,16 +213,38 @@ export const PostCards = ({item}) => {
             value={comment}
             onChange={handleChangeComment}
             />
-            <Button 
+
+            {
+              currentUser ? 
+              (
+                <Button 
+                  type='submit' 
+                  variant='contained'
+                  onClick={()=>
+                    {
+                      commentPostData('comments',item.id,{...commentData,post:item.id,content:comment})
+                      getBlogData('blogs') //burada blogs dataya tekrar istel atılır çünkü yorum count bilgisine ulaşmak için
+                      setComment("")
+                    }
+                  }
+                  >
+                    Comment
+                  </Button>
+              ):(
+                <Button 
             type='submit' 
             variant='contained'
             onClick={()=>
               {
-                commentPostData('comments',item.id,{...commentData,post:item.id,content:comment})
-                getBlogData('blogs') //burada blogs dataya tekrar istel atılır çünkü yorum count bilgisine ulaşmak için
+                toastErrorNotify('Please Login !')
                 setComment("")
               }
             }>Comment</Button>
+              )
+            }
+            
+
+
           </Box>
 
           {
