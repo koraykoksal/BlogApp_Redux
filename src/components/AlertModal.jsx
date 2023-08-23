@@ -15,7 +15,6 @@ export const AlertModal = ({open,setOpen,item,userPost}) => {
   
     const handleClose = () => {
       setOpen(false);
-      getBlogData('blogs')
     };
 
     // useEffect(() => {

@@ -187,6 +187,7 @@ const useBlogCall = () => {
                 headers: { Authorization: `Token ${token}` },
             })
 
+            getBlogData('blogs')
             toastSuccessNotify('The Post Deleted ✅')
             
         } catch (error) {
