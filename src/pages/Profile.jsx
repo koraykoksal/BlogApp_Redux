@@ -43,7 +43,7 @@ export const Profile = () => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="info" onClick={()=>navi('/')}>
+          <Button size="small" color="info" onClick={()=>navi(-1)}>
             Back
           </Button>
         </CardActions>

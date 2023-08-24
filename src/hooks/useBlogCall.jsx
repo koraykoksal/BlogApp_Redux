@@ -82,7 +82,7 @@ const useBlogCall = () => {
 
             //yapılan yorum bilgisini sayfa render olmadan görüntülemek için istek atılır
             getcommnetsData(url,id)
-
+            getBlogData('blogs')
             getViewedBlogData('blogs',id) 
 
             toastSuccessNotify('Your Comment Published')

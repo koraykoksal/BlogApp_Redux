@@ -16,7 +16,7 @@ export const Footers = () => {
 
   return (
     
-    <Box sx={{ width: '100%',position:'fixed',bottom:0,height:'45px' }}>
+    <Box sx={{ width: '100%',position:'fixed',bottom:0,height:'50px' }}>
     <BottomNavigation
     sx={{backgroundColor:'black'}}
       showLabels
