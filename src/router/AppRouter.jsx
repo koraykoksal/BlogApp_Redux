@@ -23,7 +23,6 @@ export const AppRouter = () => {
     <>
     <BrowserRouter>
     <NavBars/>
-    {/* <Navs/> */}
         <Routes>
             <Route index element={<Home/>}/>
             <Route path='login' element={<Login/>}/>
@@ -39,6 +38,7 @@ export const AppRouter = () => {
             <Route path='*' element={<NotFound/>}/>
         </Routes>
         </BrowserRouter>
+        <Footers/>
     </>
   )
 }

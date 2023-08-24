@@ -84,62 +84,6 @@ export default function PostModal({open,setOpen}) {
           
           </Box>
 
-          {/* <Box sx={{display: "flex", flexDirection: "column", gap: 2 }}
-          >
-                  <TextField
-                  required
-                  label="Title"
-                  name="title"
-                  id='title'
-                  type='text'
-                  variant='outlined'
-                  value={info?.title || ""}
-                  onChange={handleChange}
-                  />
-                  <TextField
-                  required
-                  label="Content"
-                  name="content"
-                  id='content'
-                  type='text'
-                  variant='outlined'
-                  value={info?.content || ""}
-                  onChange={handleChange}
-                  
-                  />
-                  <FormControl>
-                    <InputLabel>Category</InputLabel>
-                    <Select
-                      id='category'
-                      value={info?.category || ""}
-                      onChange={handleChange}
-                      autoWidth
-                      name='category'
-                      label='Category'
-                    >
-                      {
-                        categories.map((item)=>(
-                          <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
-                        ))
-                      }
-                      
-                    </Select>
-                  </FormControl>
-
-                  <TextField
-                  label="Image Link"
-                  name="image_link"
-                  id='image_link'
-                  type='text'
-                  variant='outlined'
-                  value={info?.image_link || ""}
-                  onChange={handleChange}
-                  />
-
-                  <Button type='submit' variant='contained' sx={{backgroundColor:'#7A9D54','&:hover':{backgroundColor:'#557A46'}}} onClick={handleSubmit}>Publish</Button>
-                  <Button variant='outlined' onClick={handleClose}>Cancel</Button>
-          </Box> */}
-
 
           <Formik
           initialValues={{title:"",content:"",image:"",category:"",status:"p",slug:"string"}}
