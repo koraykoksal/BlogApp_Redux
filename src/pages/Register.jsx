@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {FcGoogle} from 'react-icons/fc'
 import Container from "@mui/material/Container"
 import Typography from "@mui/material/Typography"
 import Avatar from "@mui/material/Avatar"
@@ -11,7 +10,6 @@ import { Formik } from "formik"
 import RegisterForm, { registerSchema } from "../components/RegisterForm"
 import image from "../assets/result.svg"
 import useAuthCall from '../hooks/useAuthCall'
-import { useSelector } from 'react-redux'
 
 
 export const Register = () => {
