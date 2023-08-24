@@ -45,6 +45,7 @@ export const MyPost = () => {
     const{allPost} = useSelector((state)=>state.blog)
     const [userPost, setuserPost] = useState([])
 
+
     const {userBlogs} = useSelector((state)=>state.blog)
 
     // const {comments}=useSelector((state)=>state.blog)
@@ -55,29 +56,28 @@ export const MyPost = () => {
   
     const {id,username}=userInfo
   
-    const {commentPostData,getcommnetsData,likePostData,getViewedBlogData,getBlogData,getUserPostData} = useBlogCall()
+    const {commentPostData,getcommnetsData,likePostData,getViewedBlogData,getBlogData,getUserPostData,getUserDraftData} = useBlogCall()
   
 
 
-    const userPostControl=()=>{
+    // const userPostControl=()=>{
 
-      const data = allPost.filter(item=>item.author == currentUser)
-      setuserPost(data)
+    //   const data = allPost.filter(item=>item.author == currentUser)
+    //   setuserPost(data)
 
-    }
+    // }
 
-
-    useEffect(() => {
-      userPostControl()
-    }, [allPost])
+    // useEffect(() => {
+    //   userPostControl()
+    // }, [allPost])
     
 
     useEffect(() => {
       getBlogData('blogs')
-      getUserPostData(id)
+      getUserPostData(userInfo.id)
     }, [])
 
-    
+
 
   return (
 
@@ -88,10 +88,10 @@ export const MyPost = () => {
 
         {
 
-          userPost.map((item,index)=>(
+          userBlogs.map((item,index)=>(
 
             <Grid item key={index}>
-            <UserPost item={item} userBlogs={userBlogs} userPost={userPost}/>
+            <UserPost item={item} />
             </Grid>
 
           ))

@@ -169,6 +169,7 @@ const useBlogCall = () => {
                 headers: { Authorization: `Token ${token}` },
             })
 
+            // getBlogData('blogs')
             distpatch(fetchSuccessUserBlog(data))
             
         } catch (error) {
@@ -176,6 +177,7 @@ const useBlogCall = () => {
             toastErrorNotify('Something Went Wrong !')
         }
     }
+
 
     const deletePostData=async(url,id)=>{
         distpatch(fetchStart())
@@ -196,10 +198,8 @@ const useBlogCall = () => {
         }
     }
 
-    const updatePostData=async (url,id,info)=>{
 
-        console.log(info)
-        console.log(url,id)
+    const updatePostData=async (url,id,info)=>{
 
         distpatch(fetchStart())
 
@@ -210,8 +210,10 @@ const useBlogCall = () => {
                 headers:{Authorization:`Token ${token}`}
             })
 
+            
             getBlogData('blogs')
-            toastSuccessNotify('Update Successful ✅')
+            navi('/')
+            
             
         } catch (error) {
             distpatch(fetchFail())
@@ -238,6 +240,8 @@ const useBlogCall = () => {
         }
     }
 
+
+
     return {
         getBlogData,
         newPostData,
@@ -249,7 +253,8 @@ const useBlogCall = () => {
         getUserPostData,
         deletePostData,
         updatePostData,
-        postContactData
+        postContactData,
+        
     }
 }
 

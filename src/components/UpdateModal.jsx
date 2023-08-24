@@ -62,7 +62,6 @@ export const UpdateModal = ({openUpdate,setOpenUpdate,item}) => {
           initialValues={{title:item.title,content:item.content,image:item.image,category:item.category_name,status:"p",slug:"string"}}
           validationSchema={postInfoSchema}
           onSubmit={(values,actions)=>{
-            // newPostData('blogs',values)
             updatePostData('blogs',item.id,values)
             actions.resetForm()
             actions.setSubmitting(false)

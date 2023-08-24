@@ -28,6 +28,12 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { AlertModal } from './AlertModal';
 import { UpdateModal } from './UpdateModal';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import { useEffect } from 'react';
+import {toastSuccessNotify,toastErrorNotify} from '../helper/ToastNotify'
+
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -40,11 +46,9 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export const UserPost = ({item,userBlogs,userPost}) => {
+export const UserPost = ({item}) => {
 
     const {currentUser,userInfo}=useSelector((state)=>state.auth)
-    const distpatch=useDispatch()
-    const navi=useNavigate()
 
     const [expanded, setExpanded] = React.useState(false);
 
@@ -59,7 +63,9 @@ export const UserPost = ({item,userBlogs,userPost}) => {
 
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-    const {commentPostData,getcommnetsData,likePostData,getViewedBlogData,getBlogData} = useBlogCall()
+    const [publish, setPublish] = useState({})
+
+    const {commentPostData,getcommnetsData,likePostData,updatePostData,getUserPostData,getBlogData} = useBlogCall()
 
     const handleExpandClick = () => {
       setExpanded(!expanded);
@@ -77,14 +83,16 @@ export const UserPost = ({item,userBlogs,userPost}) => {
         setAnchorElUser(null);
     };
 
-    
-
     const handleClickOpenDeleteModal = () => {
       setOpenAlert(true);
     };
     const handleClickOpenUpdateModal = () => {
       setOpenUpdate(true);
     };
+
+
+    
+
 
   return (
 
@@ -178,6 +186,33 @@ export const UserPost = ({item,userBlogs,userPost}) => {
             }}
             />
             </Badge>
+
+            {
+
+              item.status =="p" && <BookmarkBorderIcon color='action' 
+              sx={{'&:hover':{cursor:'pointer'}}}
+              onClick={()=>{
+                updatePostData('blogs',item.id,{...publish,title:item.title,content:item.content,image:item.image,category:item.category,author:item.author,status:'d'})
+                getBlogData('blogs')
+                getUserPostData(userInfo.id)
+                toastSuccessNotify('Unpublished ❌')
+              }}
+              />
+            }
+
+            {
+              item.status == "d" && <BookmarkIcon color='action' 
+              sx={{'&:hover':{cursor:'pointer'}}}
+              onClick={()=>{
+                updatePostData('blogs',item.id,{...publish,title:item.title,content:item.content,image:item.image,category:item.category,author:item.author,status:'p'})
+                getBlogData('blogs')
+                getUserPostData(userInfo.id)
+                toastSuccessNotify('Published ✅')
+              }}
+              />
+            }
+            
+
 
 
         {/* <ExpandMore
