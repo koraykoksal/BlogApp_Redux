@@ -219,6 +219,25 @@ const useBlogCall = () => {
         }
     }
 
+
+    const postContactData=async(info)=>{
+
+        console.log("buradaasın")
+
+        try {
+
+        const {data} = await axios.post(`${import.meta.env.VITE_CONTACT_URL}`,info)
+
+        if(data.ok){
+            toastSuccessNotify('Your Message Send. Thanks ❤️')
+        }
+
+        } catch (error) {
+            console.log(error)
+            toastErrorNotify('Can not be send data !')
+        }
+    }
+
     return {
         getBlogData,
         newPostData,
@@ -229,7 +248,8 @@ const useBlogCall = () => {
         getViewedBlogData,
         getUserPostData,
         deletePostData,
-        updatePostData
+        updatePostData,
+        postContactData
     }
 }
 
