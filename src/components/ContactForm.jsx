@@ -45,9 +45,14 @@ export const ContactForm = () => {
 
         <Grid item xs={12} sm={10} md={6} >
 
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <Box>
                 
-                <form action='https://formspree.io/f/mknlrvpa' method='post' onSubmit={()=>handleSubmit(formInfo)}>
+                <form 
+                action='https://formspree.io/f/mknlrvpa' 
+                method='post' 
+                onSubmit={()=>handleSubmit(formInfo)}
+                style={{display: "flex", flexDirection: "column", gap: 2}}
+                >
 
             
                   <TextField
