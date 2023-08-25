@@ -17,7 +17,7 @@
 ## To Run The Program
 -`open project in vscode`
 -`open in integreted terminal`
--`pnpm` (for node_modules )
+-`pnpm`
 -`pnpm dev`
 
 ## API
