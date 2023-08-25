@@ -29,7 +29,7 @@
 ## Project Skeleton
 
 ```
-009 - Movie App (folder)
+Blog App
 |
 |----readme.md         # Given to the students (Definition of the project)
 SOLUTION
