@@ -21,7 +21,7 @@
 -`pnpm dev`
 
 ## API
-<h3>In project used Django API services</h3>
+In project used Django API services
 
 
 ## Project Skeleton
