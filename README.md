@@ -1,4 +1,4 @@
-# React + Vite
+# Blog-App With React + Vite
 
 ## Libraries
 - `@reduxjs/toolkit`
@@ -13,6 +13,15 @@
 - `react-toastify`
 - `redux-persist`
 - `yup`
+
+## To Run The Program
+-`open project in vscode`
+-`open in integreted terminal`
+-`pnpm` (for node_modules )
+-`pnpm dev`
+
+## API
+<h3>In project used Django API services</h3>
 
 
 ## Project Skeleton
