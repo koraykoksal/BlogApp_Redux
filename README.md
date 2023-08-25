@@ -31,8 +31,6 @@
 ```
 Blog App
 |
-|----readme.md         # Given to the students (Definition of the project)
-SOLUTION
 ├── public
 │     └── blogApp-favicon.png
 │     └── vite.svg
