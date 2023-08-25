@@ -21,7 +21,7 @@
 -`pnpm dev`
 
 ## API
-<h2>Django API was used in project</h2>
+<h3>Django API was used in project</h3>
 
 
 
