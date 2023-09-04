@@ -80,8 +80,6 @@ Blog App
 │    │     └── AppRouter.jsx
 |    |     └── PrivateRouter.jsx
 │    ├── styles
-│    ├── router
-│    │     └── Router.js
 │    ├── App.jsx
 │    ├── App.css
 │    ├── main.jsx
