@@ -1,5 +1,6 @@
 # Blog-App With React + Vite
 
+
 ## Libraries
 - `@reduxjs/toolkit`
 - `react-redux`
@@ -14,7 +15,7 @@
 - `redux-persist`
 - `yup`
 
-## To Run The Program
+## Getting Started
 -`open project in vscode`
 -`open in integreted terminal`
 -`pnpm`
