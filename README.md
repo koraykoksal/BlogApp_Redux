@@ -23,8 +23,7 @@
 ## API
 <h4>Django API was used in project</h4>
 
-
-## Live Link
+# Live Link
 <a href="https://kblog-app.vercel.app" target="_blank">BLOG App Live Link</a>
 
 ## Project Skeleton
