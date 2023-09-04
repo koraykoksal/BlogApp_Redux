@@ -21,10 +21,11 @@
 -`pnpm dev`
 
 ## API
-<h3>Django API was used in project</h3>
+<h4>Django API was used in project</h4>
 
 
-
+## Live Link
+<a href="https://kblog-app.vercel.app" target="_blank">BLOG App Live Link</a>
 
 ## Project Skeleton
 
@@ -93,6 +94,9 @@ Blog App
 └── vite.config.js
 ```
 
+## Photos
+
+# Login
 
 
 
